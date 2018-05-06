@@ -16,4 +16,6 @@
 
 @property (nonatomic, strong) NSString *subTextRect;
 
+@property (nonatomic, strong) NSString *text;
+
 @end

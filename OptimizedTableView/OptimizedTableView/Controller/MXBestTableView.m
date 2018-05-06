@@ -44,7 +44,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MXBestTableViewCell *cell = [self dequeueReusableCellWithIdentifier:BestCellReuseID];
+    [self drawCell:cell atIndexPath:indexPath];
     return cell;
+}
+
+- (void)drawCell:(MXBestTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    [cell clear];
+    MXContent *data = self.datas[indexPath.row];
+    cell.data = data;
+    [cell draw];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

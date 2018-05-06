@@ -22,6 +22,7 @@
 		049D2987209EE50100497CAC /* UIScreen+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2983209EE50000497CAC /* UIScreen+Additions.m */; };
 		049D298A209EEBBD00497CAC /* MXContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2989209EEBBD00497CAC /* MXContent.m */; };
 		049D298C209EEEF600497CAC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 049D298B209EEEF600497CAC /* Launch Screen.storyboard */; };
+		049D298F209EFEB100497CAC /* MXBestLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D298E209EFEB100497CAC /* MXBestLabel.m */; };
 		497A0BF9B46FF187861EFC27 /* libPods-OptimizedTableView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CCC5C61C6316B98CBA15A04 /* libPods-OptimizedTableView.a */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,8 @@
 		049D2988209EEBBD00497CAC /* MXContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXContent.h; sourceTree = "<group>"; };
 		049D2989209EEBBD00497CAC /* MXContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXContent.m; sourceTree = "<group>"; };
 		049D298B209EEEF600497CAC /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		049D298D209EFEB100497CAC /* MXBestLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXBestLabel.h; sourceTree = "<group>"; };
+		049D298E209EFEB100497CAC /* MXBestLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXBestLabel.m; sourceTree = "<group>"; };
 		2A0E91D0A635E2E7E491FC76 /* Pods-OptimizedTableView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OptimizedTableView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OptimizedTableView/Pods-OptimizedTableView.debug.xcconfig"; sourceTree = "<group>"; };
 		4CCC5C61C6316B98CBA15A04 /* libPods-OptimizedTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OptimizedTableView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		600786613D4A4C1ACB2F33AF /* Pods-OptimizedTableView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OptimizedTableView.release.xcconfig"; path = "Pods/Target Support Files/Pods-OptimizedTableView/Pods-OptimizedTableView.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +132,8 @@
 			children = (
 				049D297B209ED73E00497CAC /* MXBestTableViewCell.h */,
 				049D297C209ED73E00497CAC /* MXBestTableViewCell.m */,
+				049D298D209EFEB100497CAC /* MXBestLabel.h */,
+				049D298E209EFEB100497CAC /* MXBestLabel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				049D297D209ED73F00497CAC /* MXBestTableViewCell.m in Sources */,
+				049D298F209EFEB100497CAC /* MXBestLabel.m in Sources */,
 				049D2974209ED5B000497CAC /* main.m in Sources */,
 				049D2977209ED5B000497CAC /* MXViewController.m in Sources */,
 				049D2978209ED5B000497CAC /* MXBestTableView.m in Sources */,

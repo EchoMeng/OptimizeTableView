@@ -9,6 +9,8 @@
 #import "MXBestTableViewCell.h"
 #import "UIScreen+Additions.h"
 #import "UIView+Additions.h"
+#import <UIImageView+WebCache.h>
+#import "MXBestLabel.h"
 
 #define HeadTopMargin (15)
 #define HeadLeftMargin (15)
@@ -25,11 +27,13 @@
 
 @property (nonatomic, strong) UIView *topLine;
 
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) MXBestLabel *titleLabel;
 
-@property (nonatomic, strong) UILabel *detailInfoLabel;
+@property (nonatomic, strong) MXBestLabel *detailInfoLabel;
 
 @property (nonatomic, strong) UIScrollView *mutiImageScrollView;
+
+@property (nonatomic, assign) BOOL drawed;
 
 @end
 
@@ -89,15 +93,18 @@
         _detailInfoLabel = nil;
     }
     
-    _titleLabel = [[UILabel alloc] init];
+    _titleLabel = [[MXBestLabel alloc] init];
     _titleLabel.frame = CGRectFromString(self.data.textRect);
     _titleLabel.textColor = [UIColor blackColor];
+    _titleLabel.text = self.data.text;
+    _titleLabel.backgroundColor = [UIColor purpleColor];
     [self.contentView addSubview:_titleLabel];
     
-    _detailInfoLabel = [[UILabel alloc] init];
+    _detailInfoLabel = [[MXBestLabel alloc] init];
     _detailInfoLabel.frame = CGRectFromString(self.data.subTextRect);
     _detailInfoLabel.textColor = [UIColor grayColor];
     _detailInfoLabel.font = [UIFont systemFontOfSize:DetailFontSize];
+    _detailInfoLabel.backgroundColor = [UIColor blueColor];
     [self.contentView addSubview:_detailInfoLabel];
 }
 
@@ -106,11 +113,31 @@
 }
 
 - (void)clear {
-    
+    if (!_drawed) {
+        return;
+    }
+    [self.titleLabel clear];
+    if (!self.detailInfoLabel.hidden) {
+        self.detailInfoLabel.hidden = YES;
+        [self.detailInfoLabel clear];
+    }
+    self.bgImageView.frame = CGRectZero;
+    self.bgImageView.image = nil;
+    for (UIImageView *imageView in self.mutiImageScrollView.subviews) {
+        if (!imageView.hidden) {
+            [imageView sd_cancelCurrentAnimationImagesLoad];
+        }
+    }
+    if (self.mutiImageScrollView.contentOffset.x != 0) {
+        [self.mutiImageScrollView setContentOffset:CGPointZero];
+    }
+    self.mutiImageScrollView.hidden = YES;
+    self.drawed = NO;
 }
 
 - (void)releaseMemory {
-    
+    [self clear];
+    [super removeFromSuperview];
 }
 
 @end
