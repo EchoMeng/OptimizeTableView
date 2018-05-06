@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  MXBestTableView.h
 //  OptimizedTableView
 //
-//  Created by mac on 2018/5/5.
+//  Created by mac on 2018/5/6.
 //  Copyright © 2018年 mac. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface MXBestTableView : UITableView
 
 @end
-

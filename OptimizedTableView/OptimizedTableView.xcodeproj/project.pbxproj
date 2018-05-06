@@ -7,22 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		049D2944209DAD6500497CAC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2943209DAD6500497CAC /* AppDelegate.m */; };
-		049D2947209DAD6500497CAC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2946209DAD6500497CAC /* ViewController.m */; };
-		049D294C209DAD6700497CAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049D294B209DAD6700497CAC /* Assets.xcassets */; };
-		049D2952209DAD6700497CAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2951209DAD6700497CAC /* main.m */; };
+		049D296F209ED5B000497CAC /* t_repost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049D295F209ED5B000497CAC /* t_repost@2x.png */; };
+		049D2970209ED5B000497CAC /* t_comments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049D2960209ED5B000497CAC /* t_comments@2x.png */; };
+		049D2971209ED5B000497CAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049D2962209ED5B000497CAC /* Assets.xcassets */; };
+		049D2972209ED5B000497CAC /* corner_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049D2963209ED5B000497CAC /* corner_circle@2x.png */; };
+		049D2973209ED5B000497CAC /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 049D2964209ED5B000497CAC /* data.plist */; };
+		049D2974209ED5B000497CAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2965209ED5B000497CAC /* main.m */; };
+		049D2975209ED5B000497CAC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2966209ED5B000497CAC /* AppDelegate.m */; };
+		049D2977209ED5B000497CAC /* MXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D296D209ED5B000497CAC /* MXViewController.m */; };
+		049D2978209ED5B000497CAC /* MXBestTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D296E209ED5B000497CAC /* MXBestTableView.m */; };
+		049D297D209ED73F00497CAC /* MXBestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D297C209ED73E00497CAC /* MXBestTableViewCell.m */; };
+		049D2985209EE50100497CAC /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D297F209EE50000497CAC /* NSString+Additions.m */; };
+		049D2986209EE50100497CAC /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2980209EE50000497CAC /* UIView+Additions.m */; };
+		049D2987209EE50100497CAC /* UIScreen+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2983209EE50000497CAC /* UIScreen+Additions.m */; };
+		049D298A209EEBBD00497CAC /* MXContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D2989209EEBBD00497CAC /* MXContent.m */; };
+		049D298C209EEEF600497CAC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 049D298B209EEEF600497CAC /* Launch Screen.storyboard */; };
 		497A0BF9B46FF187861EFC27 /* libPods-OptimizedTableView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CCC5C61C6316B98CBA15A04 /* libPods-OptimizedTableView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		049D293F209DAD6500497CAC /* OptimizedTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OptimizedTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		049D2942209DAD6500497CAC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		049D2943209DAD6500497CAC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		049D2945209DAD6500497CAC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		049D2946209DAD6500497CAC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		049D294B209DAD6700497CAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		049D2950209DAD6700497CAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		049D2951209DAD6700497CAC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		049D295F209ED5B000497CAC /* t_repost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "t_repost@2x.png"; sourceTree = "<group>"; };
+		049D2960209ED5B000497CAC /* t_comments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "t_comments@2x.png"; sourceTree = "<group>"; };
+		049D2961209ED5B000497CAC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		049D2962209ED5B000497CAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		049D2963209ED5B000497CAC /* corner_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "corner_circle@2x.png"; sourceTree = "<group>"; };
+		049D2964209ED5B000497CAC /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
+		049D2965209ED5B000497CAC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		049D2966209ED5B000497CAC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		049D296B209ED5B000497CAC /* MXViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXViewController.h; sourceTree = "<group>"; };
+		049D296C209ED5B000497CAC /* MXBestTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXBestTableView.h; sourceTree = "<group>"; };
+		049D296D209ED5B000497CAC /* MXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXViewController.m; sourceTree = "<group>"; };
+		049D296E209ED5B000497CAC /* MXBestTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXBestTableView.m; sourceTree = "<group>"; };
+		049D2979209ED5DB00497CAC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = OptimizedTableView/Info.plist; sourceTree = "<group>"; };
+		049D297B209ED73E00497CAC /* MXBestTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXBestTableViewCell.h; sourceTree = "<group>"; };
+		049D297C209ED73E00497CAC /* MXBestTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXBestTableViewCell.m; sourceTree = "<group>"; };
+		049D297F209EE50000497CAC /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
+		049D2980209EE50000497CAC /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
+		049D2981209EE50000497CAC /* UIScreen+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+Additions.h"; sourceTree = "<group>"; };
+		049D2982209EE50000497CAC /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		049D2983209EE50000497CAC /* UIScreen+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+Additions.m"; sourceTree = "<group>"; };
+		049D2984209EE50000497CAC /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
+		049D2988209EEBBD00497CAC /* MXContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXContent.h; sourceTree = "<group>"; };
+		049D2989209EEBBD00497CAC /* MXContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXContent.m; sourceTree = "<group>"; };
+		049D298B209EEEF600497CAC /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2A0E91D0A635E2E7E491FC76 /* Pods-OptimizedTableView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OptimizedTableView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OptimizedTableView/Pods-OptimizedTableView.debug.xcconfig"; sourceTree = "<group>"; };
 		4CCC5C61C6316B98CBA15A04 /* libPods-OptimizedTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OptimizedTableView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		600786613D4A4C1ACB2F33AF /* Pods-OptimizedTableView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OptimizedTableView.release.xcconfig"; path = "Pods/Target Support Files/Pods-OptimizedTableView/Pods-OptimizedTableView.release.xcconfig"; sourceTree = "<group>"; };
@@ -44,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				049D2941209DAD6500497CAC /* OptimizedTableView */,
+				049D2979209ED5DB00497CAC /* Info.plist */,
 				049D2940209DAD6500497CAC /* Products */,
 				BED4636206D5EA5F20AA0948 /* Pods */,
 				EF6BC2DB2149C4AE4C97B877 /* Frameworks */,
@@ -61,15 +90,71 @@
 		049D2941209DAD6500497CAC /* OptimizedTableView */ = {
 			isa = PBXGroup;
 			children = (
-				049D2942209DAD6500497CAC /* AppDelegate.h */,
-				049D2943209DAD6500497CAC /* AppDelegate.m */,
-				049D2945209DAD6500497CAC /* ViewController.h */,
-				049D2946209DAD6500497CAC /* ViewController.m */,
-				049D294B209DAD6700497CAC /* Assets.xcassets */,
-				049D2950209DAD6700497CAC /* Info.plist */,
-				049D2951209DAD6700497CAC /* main.m */,
+				049D297E209EE50000497CAC /* Tools */,
+				049D2969209ED5B000497CAC /* View */,
+				049D296A209ED5B000497CAC /* Controller */,
+				049D2968209ED5B000497CAC /* Model */,
+				049D295E209ED5B000497CAC /* SupportingFiles */,
 			);
 			path = OptimizedTableView;
+			sourceTree = "<group>";
+		};
+		049D295E209ED5B000497CAC /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				049D295F209ED5B000497CAC /* t_repost@2x.png */,
+				049D2960209ED5B000497CAC /* t_comments@2x.png */,
+				049D2962209ED5B000497CAC /* Assets.xcassets */,
+				049D2963209ED5B000497CAC /* corner_circle@2x.png */,
+				049D2964209ED5B000497CAC /* data.plist */,
+				049D2965209ED5B000497CAC /* main.m */,
+				049D2961209ED5B000497CAC /* AppDelegate.h */,
+				049D2966209ED5B000497CAC /* AppDelegate.m */,
+				049D298B209EEEF600497CAC /* Launch Screen.storyboard */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		049D2968209ED5B000497CAC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				049D2988209EEBBD00497CAC /* MXContent.h */,
+				049D2989209EEBBD00497CAC /* MXContent.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		049D2969209ED5B000497CAC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				049D297B209ED73E00497CAC /* MXBestTableViewCell.h */,
+				049D297C209ED73E00497CAC /* MXBestTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		049D296A209ED5B000497CAC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				049D296B209ED5B000497CAC /* MXViewController.h */,
+				049D296D209ED5B000497CAC /* MXViewController.m */,
+				049D296C209ED5B000497CAC /* MXBestTableView.h */,
+				049D296E209ED5B000497CAC /* MXBestTableView.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		049D297E209EE50000497CAC /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				049D2982209EE50000497CAC /* NSString+Additions.h */,
+				049D297F209EE50000497CAC /* NSString+Additions.m */,
+				049D2981209EE50000497CAC /* UIScreen+Additions.h */,
+				049D2983209EE50000497CAC /* UIScreen+Additions.m */,
+				049D2984209EE50000497CAC /* UIView+Additions.h */,
+				049D2980209EE50000497CAC /* UIView+Additions.m */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		BED4636206D5EA5F20AA0948 /* Pods */ = {
@@ -116,6 +201,7 @@
 		049D2937209DAD6500497CAC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = MX;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = mac;
 				TargetAttributes = {
@@ -147,7 +233,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				049D294C209DAD6700497CAC /* Assets.xcassets in Resources */,
+				049D298C209EEEF600497CAC /* Launch Screen.storyboard in Resources */,
+				049D296F209ED5B000497CAC /* t_repost@2x.png in Resources */,
+				049D2971209ED5B000497CAC /* Assets.xcassets in Resources */,
+				049D2970209ED5B000497CAC /* t_comments@2x.png in Resources */,
+				049D2973209ED5B000497CAC /* data.plist in Resources */,
+				049D2972209ED5B000497CAC /* corner_circle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,9 +270,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				049D2947209DAD6500497CAC /* ViewController.m in Sources */,
-				049D2952209DAD6700497CAC /* main.m in Sources */,
-				049D2944209DAD6500497CAC /* AppDelegate.m in Sources */,
+				049D297D209ED73F00497CAC /* MXBestTableViewCell.m in Sources */,
+				049D2974209ED5B000497CAC /* main.m in Sources */,
+				049D2977209ED5B000497CAC /* MXViewController.m in Sources */,
+				049D2978209ED5B000497CAC /* MXBestTableView.m in Sources */,
+				049D2975209ED5B000497CAC /* AppDelegate.m in Sources */,
+				049D298A209EEBBD00497CAC /* MXContent.m in Sources */,
+				049D2986209EE50100497CAC /* UIView+Additions.m in Sources */,
+				049D2985209EE50100497CAC /* NSString+Additions.m in Sources */,
+				049D2987209EE50100497CAC /* UIScreen+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +403,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R94472JZM4;
 				INFOPLIST_FILE = OptimizedTableView/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mac.OptimizedTableView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -321,7 +421,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R94472JZM4;
 				INFOPLIST_FILE = OptimizedTableView/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mac.OptimizedTableView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

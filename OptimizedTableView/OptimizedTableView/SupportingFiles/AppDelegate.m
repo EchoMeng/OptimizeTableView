@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MXViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[MXViewController alloc] init]];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
