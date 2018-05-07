@@ -18,6 +18,8 @@
 
 @property (nonatomic, assign) NSTextAlignment textAlignment;
 
+@property (nonatomic, assign) CGFloat lineSpace;
+
 - (void)clear;
 
 
