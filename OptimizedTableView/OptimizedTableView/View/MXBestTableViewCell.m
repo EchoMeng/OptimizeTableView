@@ -97,14 +97,12 @@
     //_titleLabel.frame = CGRectFromString(self.data.textRect);
     _titleLabel.textColor = [UIColor blackColor];
 //    _titleLabel.text = self.data.text;
-    _titleLabel.backgroundColor = [UIColor purpleColor];
     [self.contentView addSubview:_titleLabel];
     
     _detailInfoLabel = [[MXBestLabel alloc] init];
 //    _detailInfoLabel.frame = CGRectFromString(self.data.subTextRect);
     _detailInfoLabel.textColor = [UIColor grayColor];
     _detailInfoLabel.font = [UIFont systemFontOfSize:DetailFontSize];
-    _detailInfoLabel.backgroundColor = [UIColor blueColor];
     [self.contentView addSubview:_detailInfoLabel];
 }
 

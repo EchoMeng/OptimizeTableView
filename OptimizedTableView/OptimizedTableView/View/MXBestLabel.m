@@ -50,9 +50,9 @@
     NSInteger flag = self.drawFlag;
     //async draw
     __weak typeof(self) weakself = self;
+    _text = text;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *temp = text;
-        weakself.text = text;
         CGSize size = self.frame.size;
         size.height += 10;
         UIGraphicsBeginImageContextWithOptions(size, ![self.backgroundColor isEqual:[UIColor clearColor]], 0);
@@ -209,9 +209,14 @@
 }
 
 - (void)clear {
+    _drawFlag = arc4random();
+    _text = @"";
+    _labelImageView.image = nil;
     
 }
 
-
+- (void)dealloc {
+    NSLog(@"dealloc:%@", self);
+}
 
 @end

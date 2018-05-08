@@ -44,9 +44,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MXBestTableViewCell *cell = [self dequeueReusableCellWithIdentifier:BestCellReuseID];
-    MXContent *data = self.datas[indexPath.row];
-    cell.data = data;
-//    [self drawCell:cell atIndexPath:indexPath];
+    [self drawCell:cell atIndexPath:indexPath];
     return cell;
 }
 
