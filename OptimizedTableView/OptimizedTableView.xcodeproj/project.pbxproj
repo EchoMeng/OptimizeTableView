@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042AFA4020A133F9002F258F /* MXRetweetContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 042AFA3F20A133F9002F258F /* MXRetweetContent.m */; };
+		042AFA4320A1464A002F258F /* MXUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 042AFA4220A1464A002F258F /* MXUser.m */; };
 		049D296F209ED5B000497CAC /* t_repost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049D295F209ED5B000497CAC /* t_repost@2x.png */; };
 		049D2970209ED5B000497CAC /* t_comments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049D2960209ED5B000497CAC /* t_comments@2x.png */; };
 		049D2971209ED5B000497CAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049D2962209ED5B000497CAC /* Assets.xcassets */; };
@@ -27,6 +29,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		042AFA3E20A133F9002F258F /* MXRetweetContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXRetweetContent.h; sourceTree = "<group>"; };
+		042AFA3F20A133F9002F258F /* MXRetweetContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXRetweetContent.m; sourceTree = "<group>"; };
+		042AFA4120A1464A002F258F /* MXUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXUser.h; sourceTree = "<group>"; };
+		042AFA4220A1464A002F258F /* MXUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXUser.m; sourceTree = "<group>"; };
 		049D293F209DAD6500497CAC /* OptimizedTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OptimizedTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		049D295F209ED5B000497CAC /* t_repost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "t_repost@2x.png"; sourceTree = "<group>"; };
 		049D2960209ED5B000497CAC /* t_comments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "t_comments@2x.png"; sourceTree = "<group>"; };
@@ -123,6 +129,10 @@
 			children = (
 				049D2988209EEBBD00497CAC /* MXContent.h */,
 				049D2989209EEBBD00497CAC /* MXContent.m */,
+				042AFA3E20A133F9002F258F /* MXRetweetContent.h */,
+				042AFA3F20A133F9002F258F /* MXRetweetContent.m */,
+				042AFA4120A1464A002F258F /* MXUser.h */,
+				042AFA4220A1464A002F258F /* MXUser.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -282,6 +292,8 @@
 				049D2978209ED5B000497CAC /* MXBestTableView.m in Sources */,
 				049D2975209ED5B000497CAC /* AppDelegate.m in Sources */,
 				049D298A209EEBBD00497CAC /* MXContent.m in Sources */,
+				042AFA4320A1464A002F258F /* MXUser.m in Sources */,
+				042AFA4020A133F9002F258F /* MXRetweetContent.m in Sources */,
 				049D2986209EE50100497CAC /* UIView+Additions.m in Sources */,
 				049D2985209EE50100497CAC /* NSString+Additions.m in Sources */,
 				049D2987209EE50100497CAC /* UIScreen+Additions.m in Sources */,

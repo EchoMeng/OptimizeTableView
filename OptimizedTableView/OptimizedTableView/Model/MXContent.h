@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MXRetweetContent.h"
+#import "MXUser.h"
 
 @interface MXContent : NSObject
 
@@ -14,8 +16,10 @@
 
 @property (nonatomic, strong) NSString *textRect;
 
-@property (nonatomic, strong) NSString *subTextRect;
-
 @property (nonatomic, strong) NSString *text;
+
+@property (nonatomic, strong) MXRetweetContent *retweetedStatus;
+
+@property (nonatomic, strong) MXUser *user;
 
 @end

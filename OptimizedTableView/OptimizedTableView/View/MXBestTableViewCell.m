@@ -66,8 +66,8 @@
     
     //分割线
     _topLine = [[UIView alloc] init];
-    CGRect frame = CGRectFromString(self.data.frame);
-    _topLine.frame = CGRectMake(0, frame.size.height - 0.5, [UIScreen screenWidth], 0.5);
+//    CGRect frame = CGRectFromString(self.data.frame);
+//    _topLine.frame = CGRectMake(0, frame.size.height - 0.5, [UIScreen screenWidth], 0.5);
     _topLine.backgroundColor = [UIColor yellowColor];
     [self.contentView addSubview:_topLine];
     
@@ -94,14 +94,14 @@
     }
     
     _titleLabel = [[MXBestLabel alloc] init];
-    _titleLabel.frame = CGRectFromString(self.data.textRect);
+    //_titleLabel.frame = CGRectFromString(self.data.textRect);
     _titleLabel.textColor = [UIColor blackColor];
-    _titleLabel.text = self.data.text;
+//    _titleLabel.text = self.data.text;
     _titleLabel.backgroundColor = [UIColor purpleColor];
     [self.contentView addSubview:_titleLabel];
     
     _detailInfoLabel = [[MXBestLabel alloc] init];
-    _detailInfoLabel.frame = CGRectFromString(self.data.subTextRect);
+//    _detailInfoLabel.frame = CGRectFromString(self.data.subTextRect);
     _detailInfoLabel.textColor = [UIColor grayColor];
     _detailInfoLabel.font = [UIFont systemFontOfSize:DetailFontSize];
     _detailInfoLabel.backgroundColor = [UIColor blueColor];
@@ -138,6 +138,16 @@
 - (void)releaseMemory {
     [self clear];
     [super removeFromSuperview];
+}
+
+- (void)setData:(MXContent *)data {
+    _data = data;
+    CGRect frame = CGRectFromString(self.data.frame);
+    _topLine.frame = CGRectMake(0, frame.size.height - 0.5, [UIScreen screenWidth], 0.5);
+    _titleLabel.frame = CGRectFromString(self.data.textRect);
+    _titleLabel.text = self.data.text;
+    _detailInfoLabel.frame = CGRectFromString(self.data.retweetedStatus.textRect);
+    _detailInfoLabel.text = self.data.retweetedStatus.text;
 }
 
 @end
