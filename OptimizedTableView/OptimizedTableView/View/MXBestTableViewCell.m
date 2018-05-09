@@ -42,6 +42,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setUpSubViews];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -95,7 +96,7 @@
     
     _titleLabel = [[MXBestLabel alloc] init];
     //_titleLabel.frame = CGRectFromString(self.data.textRect);
-    _titleLabel.textColor = [UIColor blackColor];
+    _titleLabel.textColor = [UIColor grayColor];
 //    _titleLabel.text = self.data.text;
     [self.contentView addSubview:_titleLabel];
     
@@ -103,11 +104,26 @@
 //    _detailInfoLabel.frame = CGRectFromString(self.data.subTextRect);
     _detailInfoLabel.textColor = [UIColor grayColor];
     _detailInfoLabel.font = [UIFont systemFontOfSize:DetailFontSize];
+    _detailInfoLabel.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1];
     [self.contentView addSubview:_detailInfoLabel];
 }
 
 - (void)draw {
-    
+    _drawed = YES;
+    [self drawText];
+}
+
+- (void)drawText {
+    if (self.titleLabel == nil || self.detailInfoLabel == nil) {
+        [self addContentLabel];
+    }
+    self.titleLabel.frame = CGRectFromString(self.data.textRect);
+    self.titleLabel.text = self.data.text;
+    if (self.data.retweetedStatus) {
+        self.detailInfoLabel.frame = CGRectFromString(self.data.retweetedStatus.textRect);
+        self.detailInfoLabel.text = self.data.retweetedStatus.text;
+        self.detailInfoLabel.hidden = NO;
+    }
 }
 
 - (void)clear {
@@ -140,12 +156,6 @@
 
 - (void)setData:(MXContent *)data {
     _data = data;
-    CGRect frame = CGRectFromString(self.data.frame);
-    _topLine.frame = CGRectMake(0, frame.size.height - 0.5, [UIScreen screenWidth], 0.5);
-    _titleLabel.frame = CGRectFromString(self.data.textRect);
-    _titleLabel.text = self.data.text;
-    _detailInfoLabel.frame = CGRectFromString(self.data.retweetedStatus.textRect);
-    _detailInfoLabel.text = self.data.retweetedStatus.text;
 }
 
 @end

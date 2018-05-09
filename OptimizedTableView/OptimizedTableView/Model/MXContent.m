@@ -8,6 +8,7 @@
 
 #import "MXContent.h"
 #import <MJExtension.h>
+#import <UIKit/UIKit.h>
 
 @implementation MXContent
 
@@ -23,6 +24,13 @@
                  @"user" : @"MXUser"
                  };
     }];
+}
+
+- (void)setTextRect:(NSString *)textRect {
+    CGRect rect = CGRectFromString(textRect);
+    rect.size.width = [UIScreen mainScreen].bounds.size.width - 2 * rect.origin.x;
+    NSString *rectString = NSStringFromCGRect(rect);
+    _textRect = rectString;
 }
 
 @end

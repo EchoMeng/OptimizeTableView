@@ -21,6 +21,7 @@
 @implementation MXBestLabel
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        _drawFlag = arc4random();
         _labelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -5, frame.size.width, frame.size.height+10)];
         _labelImageView.contentMode = UIViewContentModeScaleAspectFit;
         _labelImageView.clipsToBounds = YES;
@@ -37,6 +38,14 @@
     return self;
 }
 
+//fix coreText frame
+- (void)setFrame:(CGRect)frame {
+    if (!CGSizeEqualToSize(self.labelImageView.frame.size, frame.size)) {
+        self.labelImageView.image = nil;
+    }
+    self.labelImageView.frame = CGRectMake(0, -5, frame.size.width, frame.size.height + 10);
+    [super setFrame:frame];
+}
 
 //use coretext draw text as image
 - (void)setText:(NSString *)text {
