@@ -33,7 +33,7 @@
 - (MXBestTableView *)bestTableView {
     if (!_bestTableView) {
         _bestTableView = [[MXBestTableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _bestTableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+        _bestTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }
     return _bestTableView;
 }

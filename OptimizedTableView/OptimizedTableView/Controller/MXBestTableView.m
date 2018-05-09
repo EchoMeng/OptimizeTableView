@@ -30,9 +30,9 @@
         [self registerClass:[MXBestTableViewCell class] forCellReuseIdentifier:BestCellReuseID];
         self.delegate = self;
         self.dataSource = self;
-        
         [self loadDatas];
         [self reloadData];
+        self.backgroundColor = [UIColor grayColor];
     }
     return self;
 }

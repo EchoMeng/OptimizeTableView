@@ -14,8 +14,6 @@
 
 @property (nonatomic, strong) NSString *frame;
 
-@property (nonatomic, strong) NSString *textRect;
-
 @property (nonatomic, strong) NSString *text;
 
 @property (nonatomic, strong) MXRetweetContent *retweetedStatus;

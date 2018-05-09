@@ -12,15 +12,10 @@
 #import <UIImageView+WebCache.h>
 #import "MXBestLabel.h"
 #import "NSString+Additions.h"
+#import "MXCellLayout.h"
 
-#define HeadTopMargin (15)
-#define HeadLeftMargin (15)
-#define HeadWH (40)
-#define DetailFontSize (14)
-#define TextFontSize (16)
 #define NameFont (14)
 #define NameDetailFont (10)
-#define NameTopMargin (3)
 
 @interface MXBestTableViewCell()
 
@@ -40,6 +35,8 @@
 
 @property (nonatomic, assign) BOOL drawed;
 
+@property (nonatomic, strong) MXCellLayout *layout;
+
 @end
 
 @implementation MXBestTableViewCell
@@ -48,6 +45,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setUpSubViews];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.clipsToBounds = YES;
     }
     return self;
 }
@@ -59,21 +57,19 @@
     
     //头像按钮
     _headButton = [[UIButton alloc] init];
-    _headButton.frame = CGRectMake(HeadTopMargin, HeadLeftMargin, HeadWH, HeadWH);
     _headButton.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_headButton];
     
     //头像圆角覆盖图
     _conerImageView = [[UIImageView alloc] init];
-    _conerImageView.frame = CGRectMake(0, 0, HeadWH+5, HeadWH+5);
     _conerImageView.center = self.headButton.center;
     _conerImageView.image = [UIImage imageNamed:@"corner_circle@2x.png"];
     [self.contentView addSubview:_conerImageView];
     
     //分割线
     _topLine = [[UIView alloc] init];
-//    CGRect frame = CGRectFromString(self.data.frame);
-//    _topLine.frame = CGRectMake(0, frame.size.height - 0.5, [UIScreen screenWidth], 0.5);
+    //    CGRect frame = CGRectFromString(self.data.frame);
+    //    _topLine.frame = CGRectMake(0, frame.size.height - 0.5, [UIScreen screenWidth], 0.5);
     _topLine.backgroundColor = [UIColor yellowColor];
     [self.contentView addSubview:_topLine];
     
@@ -100,17 +96,16 @@
     }
     
     _titleLabel = [[MXBestLabel alloc] init];
-    //_titleLabel.frame = CGRectFromString(self.data.textRect);
     _titleLabel.textColor = [UIColor grayColor];
-    _titleLabel.font = [UIFont systemFontOfSize:TextFontSize];
-//    _titleLabel.text = self.data.text;
+    _titleLabel.font = [UIFont systemFontOfSize:14];
+    //    _titleLabel.text = self.data.text;
     [self.contentView addSubview:_titleLabel];
     
+    
     _detailInfoLabel = [[MXBestLabel alloc] init];
-//    _detailInfoLabel.frame = CGRectFromString(self.data.subTextRect);
     _detailInfoLabel.textColor = [UIColor grayColor];
-    _detailInfoLabel.font = [UIFont systemFontOfSize:DetailFontSize];
-//    _detailInfoLabel.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1];
+    _detailInfoLabel.font = [UIFont systemFontOfSize:12];
+    //    _detailInfoLabel.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1];
     [self.contentView addSubview:_detailInfoLabel];
 }
 
@@ -131,21 +126,16 @@
         //如果有详情部分，设置其背景颜色
         if (self.data.retweetedStatus) {
             [[UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1] set];
-            CGContextFillRect(context, self.data.retweetedStatus.frame);
+            CGContextFillRect(context, self.layout.subRect);
         }
         //绘制用户名部分
         {
-            CGFloat x = HeadLeftMargin + HeadWH + HeadLeftMargin;
-            CGFloat y = HeadTopMargin + NameTopMargin;
-            [self.data.user.name drawInContext:context withPosition:CGPointMake(x, y) andFont:[UIFont systemFontOfSize:NameFont] andTextColor:[UIColor colorWithRed:106/255.0 green:140/255.0 blue:181/255.0 alpha:1] andHeight:rect.size.height];
+            [self.data.user.name drawInContext:context withPosition:self.layout.nameOrigin andFont:[UIFont systemFontOfSize:NameFont] andTextColor:[UIColor colorWithRed:106/255.0 green:140/255.0 blue:181/255.0 alpha:1] andHeight:rect.size.height];
             
-            CGFloat fromX = x;
-            CGFloat fromY = y + 20;
             CGFloat fromHeight = rect.size.height;
-            [self.data.createdAt drawInContext:context withPosition:CGPointMake(fromX, fromY) andFont:[UIFont systemFontOfSize:NameDetailFont] andTextColor:[UIColor grayColor] andHeight:fromHeight];
+            
+            [self.data.createdAt drawInContext:context withPosition:self.layout.sunNameOrigin andFont:[UIFont systemFontOfSize:NameDetailFont] andTextColor:[UIColor grayColor] andHeight:fromHeight];
         }
-        
-        
         
         
         //获取截图
@@ -165,10 +155,10 @@
     if (self.titleLabel == nil || self.detailInfoLabel == nil) {
         [self addContentLabel];
     }
-    self.titleLabel.frame = CGRectFromString(self.data.textRect);
+    self.titleLabel.frame = self.layout.textRect;
     self.titleLabel.text = self.data.text;
     if (self.data.retweetedStatus) {
-        self.detailInfoLabel.frame = CGRectFromString(self.data.retweetedStatus.textRect);
+        self.detailTextLabel.frame = self.layout.subTextRect;
         self.detailInfoLabel.text = self.data.retweetedStatus.text;
         self.detailInfoLabel.hidden = NO;
     } else {
@@ -207,7 +197,24 @@
 }
 
 - (void)setData:(MXContent *)data {
+    self.layout.data = data;
+    self.headButton.frame = self.layout.headFrame;
+    self.conerImageView.frame = self.layout.cornerFrame;
+    self.conerImageView.center = self.headButton.center;
     _data = data;
+}
+
+- (void)setFrame:(CGRect)frame {
+    CGRect newFrame = frame;
+    newFrame.size.height -= 3;
+    [super setFrame:newFrame];
+}
+
+- (MXCellLayout *)layout {
+    if (!_layout) {
+        _layout = [[MXCellLayout alloc] init];
+    }
+    return _layout;
 }
 
 @end

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		042AFA4020A133F9002F258F /* MXRetweetContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 042AFA3F20A133F9002F258F /* MXRetweetContent.m */; };
 		042AFA4320A1464A002F258F /* MXUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 042AFA4220A1464A002F258F /* MXUser.m */; };
+		0446695620A30A0300A2502B /* MXCellLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0446695520A30A0300A2502B /* MXCellLayout.m */; };
 		049D296F209ED5B000497CAC /* t_repost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049D295F209ED5B000497CAC /* t_repost@2x.png */; };
 		049D2970209ED5B000497CAC /* t_comments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049D2960209ED5B000497CAC /* t_comments@2x.png */; };
 		049D2971209ED5B000497CAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049D2962209ED5B000497CAC /* Assets.xcassets */; };
@@ -33,6 +34,8 @@
 		042AFA3F20A133F9002F258F /* MXRetweetContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXRetweetContent.m; sourceTree = "<group>"; };
 		042AFA4120A1464A002F258F /* MXUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXUser.h; sourceTree = "<group>"; };
 		042AFA4220A1464A002F258F /* MXUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXUser.m; sourceTree = "<group>"; };
+		0446695420A30A0300A2502B /* MXCellLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXCellLayout.h; sourceTree = "<group>"; };
+		0446695520A30A0300A2502B /* MXCellLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXCellLayout.m; sourceTree = "<group>"; };
 		049D293F209DAD6500497CAC /* OptimizedTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OptimizedTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		049D295F209ED5B000497CAC /* t_repost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "t_repost@2x.png"; sourceTree = "<group>"; };
 		049D2960209ED5B000497CAC /* t_comments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "t_comments@2x.png"; sourceTree = "<group>"; };
@@ -77,6 +80,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0446695320A309F500A2502B /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				0446695420A30A0300A2502B /* MXCellLayout.h */,
+				0446695520A30A0300A2502B /* MXCellLayout.m */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		049D2936209DAD6500497CAC = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +111,7 @@
 		049D2941209DAD6500497CAC /* OptimizedTableView */ = {
 			isa = PBXGroup;
 			children = (
+				0446695320A309F500A2502B /* Layout */,
 				049D297E209EE50000497CAC /* Tools */,
 				049D2969209ED5B000497CAC /* View */,
 				049D296A209ED5B000497CAC /* Controller */,
@@ -295,6 +308,7 @@
 				042AFA4320A1464A002F258F /* MXUser.m in Sources */,
 				042AFA4020A133F9002F258F /* MXRetweetContent.m in Sources */,
 				049D2986209EE50100497CAC /* UIView+Additions.m in Sources */,
+				0446695620A30A0300A2502B /* MXCellLayout.m in Sources */,
 				049D2985209EE50100497CAC /* NSString+Additions.m in Sources */,
 				049D2987209EE50100497CAC /* UIScreen+Additions.m in Sources */,
 			);

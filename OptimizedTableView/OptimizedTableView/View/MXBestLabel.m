@@ -48,6 +48,8 @@
 }
 
 //use coretext draw text as image
+//
+//使用core text就是先有一个要显示的string，然后定义这个string每个部分的样式－>attributedString －> 生成 CTFramesetter -> 得到CTFrame -> 绘制（CTFrameDraw） 其中可以更详细的设置换行方式，对齐方式，绘制区域的大小等。
 - (void)setText:(NSString *)text {
     if (text == nil || text.length == 0) {
         self.labelImageView = nil;
@@ -125,6 +127,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 CFRelease(font);
                 CFRelease(framesetter);
+                CFRelease(style);
                 [[attributeStr mutableString] setString:@""];
                 
                 if (weakself.drawFlag == flag) {
@@ -211,7 +214,6 @@
             CTLineDraw(line, context);
         }
     }
-    
     
     CFRelease(frame);
     CFRelease(path);

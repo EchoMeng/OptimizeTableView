@@ -27,13 +27,6 @@
     }];
 }
 
-- (void)setTextRect:(NSString *)textRect {
-    CGRect rect = CGRectFromString(textRect);
-    rect.size.width = [UIScreen mainScreen].bounds.size.width - 2 * rect.origin.x;
-    NSString *rectString = NSStringFromCGRect(rect);
-    _textRect = rectString;
-}
-
 - (void)setFrame:(NSString *)frame {
     CGRect rect = CGRectFromString(frame);
     rect.size.width = [UIScreen mainScreen].bounds.size.width;
