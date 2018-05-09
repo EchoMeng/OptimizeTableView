@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface MXRetweetContent : NSObject
 
 @property (nonatomic, strong) NSString *text;
 
 @property (nonatomic, strong) NSString *textRect;
+
+@property (nonatomic, assign) CGRect frame;
 
 @end

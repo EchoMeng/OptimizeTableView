@@ -15,7 +15,8 @@
 + (void)load {
     [NSObject mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{
-                 @"retweetedStatus" : @"retweeted_status"
+                 @"retweetedStatus" : @"retweeted_status",
+                 @"createdAt" : @"created_at"
                  };
     }];
     [MXContent mj_setupObjectClassInArray:^NSDictionary *{
@@ -31,6 +32,24 @@
     rect.size.width = [UIScreen mainScreen].bounds.size.width - 2 * rect.origin.x;
     NSString *rectString = NSStringFromCGRect(rect);
     _textRect = rectString;
+}
+
+- (void)setFrame:(NSString *)frame {
+    CGRect rect = CGRectFromString(frame);
+    rect.size.width = [UIScreen mainScreen].bounds.size.width;
+    NSString *rectString = NSStringFromCGRect(rect);
+    _frame = rectString;
+}
+
+- (void)setCreatedAt:(NSString *)createdAt {
+    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
+    inputFormatter.dateFormat = @"EEE MMM dd HH:mm:ss Z yyyy";
+    NSDate *date = [inputFormatter dateFromString:createdAt];
+    
+    NSDateFormatter *outPutFormatter = [[NSDateFormatter alloc] init];
+    outPutFormatter.dateFormat = @"HH:mm:ss dd MMM yyyy";
+    NSString *dateStr = [outPutFormatter stringFromDate:date];
+    _createdAt = dateStr;
 }
 
 @end

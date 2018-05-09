@@ -22,4 +22,6 @@
 
 @property (nonatomic, strong) MXUser *user;
 
+@property (nonatomic, strong) NSString *createdAt;
+
 @end

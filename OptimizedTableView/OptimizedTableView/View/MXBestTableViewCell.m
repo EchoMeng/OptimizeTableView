@@ -11,11 +11,16 @@
 #import "UIView+Additions.h"
 #import <UIImageView+WebCache.h>
 #import "MXBestLabel.h"
+#import "NSString+Additions.h"
 
 #define HeadTopMargin (15)
 #define HeadLeftMargin (15)
 #define HeadWH (40)
-#define DetailFontSize (16)
+#define DetailFontSize (14)
+#define TextFontSize (16)
+#define NameFont (14)
+#define NameDetailFont (10)
+#define NameTopMargin (3)
 
 @interface MXBestTableViewCell()
 
@@ -97,6 +102,7 @@
     _titleLabel = [[MXBestLabel alloc] init];
     //_titleLabel.frame = CGRectFromString(self.data.textRect);
     _titleLabel.textColor = [UIColor grayColor];
+    _titleLabel.font = [UIFont systemFontOfSize:TextFontSize];
 //    _titleLabel.text = self.data.text;
     [self.contentView addSubview:_titleLabel];
     
@@ -104,13 +110,55 @@
 //    _detailInfoLabel.frame = CGRectFromString(self.data.subTextRect);
     _detailInfoLabel.textColor = [UIColor grayColor];
     _detailInfoLabel.font = [UIFont systemFontOfSize:DetailFontSize];
-    _detailInfoLabel.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1];
+//    _detailInfoLabel.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1];
     [self.contentView addSubview:_detailInfoLabel];
 }
 
 - (void)draw {
+    if (self.drawed) {
+        return;
+    }
     _drawed = YES;
     [self drawText];
+    //这部分将整个背景合成一张图片显示
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //这里绘制背景颜色填充
+        CGRect rect = CGRectFromString(self.data.frame);
+        UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1] set];
+        CGContextFillRect(context, rect);
+        //如果有详情部分，设置其背景颜色
+        if (self.data.retweetedStatus) {
+            [[UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1] set];
+            CGContextFillRect(context, self.data.retweetedStatus.frame);
+        }
+        //绘制用户名部分
+        {
+            CGFloat x = HeadLeftMargin + HeadWH + HeadLeftMargin;
+            CGFloat y = HeadTopMargin + NameTopMargin;
+            [self.data.user.name drawInContext:context withPosition:CGPointMake(x, y) andFont:[UIFont systemFontOfSize:NameFont] andTextColor:[UIColor colorWithRed:106/255.0 green:140/255.0 blue:181/255.0 alpha:1] andHeight:rect.size.height];
+            
+            CGFloat fromX = x;
+            CGFloat fromY = y + 20;
+            CGFloat fromHeight = rect.size.height;
+            [self.data.createdAt drawInContext:context withPosition:CGPointMake(fromX, fromY) andFont:[UIFont systemFontOfSize:NameDetailFont] andTextColor:[UIColor grayColor] andHeight:fromHeight];
+        }
+        
+        
+        
+        
+        //获取截图
+        UIImage *temp = UIGraphicsGetImageFromCurrentImageContext();
+        //关闭上下文
+        UIGraphicsEndImageContext();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.bgImageView.frame = rect;
+            self.bgImageView.image = nil;
+            self.bgImageView.image = temp;
+        });
+    });
+    
 }
 
 - (void)drawText {
@@ -123,6 +171,10 @@
         self.detailInfoLabel.frame = CGRectFromString(self.data.retweetedStatus.textRect);
         self.detailInfoLabel.text = self.data.retweetedStatus.text;
         self.detailInfoLabel.hidden = NO;
+    } else {
+        self.detailTextLabel.frame = CGRectZero;
+        self.detailTextLabel.text = nil;
+        self.detailTextLabel.hidden = YES;
     }
 }
 

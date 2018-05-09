@@ -7,7 +7,7 @@
 //
 
 #import "MXRetweetContent.h"
-#import <UIKit/UIKit.h>
+
 
 @implementation MXRetweetContent
 
@@ -16,6 +16,10 @@
     rect.size.width = [UIScreen mainScreen].bounds.size.width - 2 * rect.origin.x;
     NSString *rectString = NSStringFromCGRect(rect);
     _textRect = rectString;
+    
+    CGFloat frameWidth = rect.size.width + 2 * rect.origin.x;
+    CGRect frame = CGRectMake(0, rect.origin.y - 10, frameWidth, rect.size.height);
+    _frame = frame;
 }
 
 @end
