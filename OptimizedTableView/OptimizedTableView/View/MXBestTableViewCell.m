@@ -97,14 +97,14 @@
     
     _titleLabel = [[MXBestLabel alloc] init];
     _titleLabel.textColor = [UIColor grayColor];
-    _titleLabel.font = [UIFont systemFontOfSize:14];
+    _titleLabel.font = [UIFont systemFontOfSize:TextFontSize];
     //    _titleLabel.text = self.data.text;
     [self.contentView addSubview:_titleLabel];
     
     
     _detailInfoLabel = [[MXBestLabel alloc] init];
     _detailInfoLabel.textColor = [UIColor grayColor];
-    _detailInfoLabel.font = [UIFont systemFontOfSize:12];
+    _detailInfoLabel.font = [UIFont systemFontOfSize:DetailFontSize];
     //    _detailInfoLabel.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1];
     [self.contentView addSubview:_detailInfoLabel];
 }
@@ -123,9 +123,14 @@
         CGContextRef context = UIGraphicsGetCurrentContext();
         [[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1] set];
         CGContextFillRect(context, rect);
+        //祝文本部分颜色
+        [[UIColor yellowColor] set];
+        CGContextFillRect(context, self.layout.rect);
+        
         //如果有详情部分，设置其背景颜色
         if (self.data.retweetedStatus) {
-            [[UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1] set];
+//            [[UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1] set];
+            [[UIColor redColor] set];
             CGContextFillRect(context, self.layout.subRect);
         }
         //绘制用户名部分
@@ -158,13 +163,9 @@
     self.titleLabel.frame = self.layout.textRect;
     self.titleLabel.text = self.data.text;
     if (self.data.retweetedStatus) {
-        self.detailTextLabel.frame = self.layout.subTextRect;
+        self.detailInfoLabel.frame = self.layout.subTextRect;
         self.detailInfoLabel.text = self.data.retweetedStatus.text;
         self.detailInfoLabel.hidden = NO;
-    } else {
-        self.detailTextLabel.frame = CGRectZero;
-        self.detailTextLabel.text = nil;
-        self.detailTextLabel.hidden = YES;
     }
 }
 

@@ -36,6 +36,8 @@
 		042AFA4220A1464A002F258F /* MXUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXUser.m; sourceTree = "<group>"; };
 		0446695420A30A0300A2502B /* MXCellLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXCellLayout.h; sourceTree = "<group>"; };
 		0446695520A30A0300A2502B /* MXCellLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXCellLayout.m; sourceTree = "<group>"; };
+		0446695820A44C0E00A2502B /* MXPublicDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXPublicDefine.h; sourceTree = "<group>"; };
+		0446695B20A44C1E00A2502B /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		049D293F209DAD6500497CAC /* OptimizedTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OptimizedTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		049D295F209ED5B000497CAC /* t_repost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "t_repost@2x.png"; sourceTree = "<group>"; };
 		049D2960209ED5B000497CAC /* t_comments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "t_comments@2x.png"; sourceTree = "<group>"; };
@@ -89,6 +91,15 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		0446695720A44BFD00A2502B /* PublicDefine */ = {
+			isa = PBXGroup;
+			children = (
+				0446695820A44C0E00A2502B /* MXPublicDefine.h */,
+				0446695B20A44C1E00A2502B /* PrefixHeader.pch */,
+			);
+			path = PublicDefine;
+			sourceTree = "<group>";
+		};
 		049D2936209DAD6500497CAC = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +122,7 @@
 		049D2941209DAD6500497CAC /* OptimizedTableView */ = {
 			isa = PBXGroup;
 			children = (
+				0446695720A44BFD00A2502B /* PublicDefine */,
 				0446695320A309F500A2502B /* Layout */,
 				049D297E209EE50000497CAC /* Tools */,
 				049D2969209ED5B000497CAC /* View */,
@@ -434,6 +446,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R94472JZM4;
+				GCC_PREFIX_HEADER = OptimizedTableView/PublicDefine/PrefixHeader.pch;
 				INFOPLIST_FILE = OptimizedTableView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +465,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R94472JZM4;
+				GCC_PREFIX_HEADER = OptimizedTableView/PublicDefine/PrefixHeader.pch;
 				INFOPLIST_FILE = OptimizedTableView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -13,8 +13,6 @@
 #define HeadTopMargin (15)
 #define HeadLeftMargin (15)
 #define HeadWH (40)
-#define DetailFontSize (14)
-#define TextFontSize (16)
 #define NameTopMargin (3)
 #define PublicMargin (10)
 
@@ -43,6 +41,9 @@
     _textRect = [self.data.text boundingRectWithSize:CGSizeMake(screenWidth - HeadLeftMargin * 2, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:TextFontSize]} context:nil];
     _textRect.origin.x = HeadLeftMargin;
     _textRect.origin.y = _headFrame.origin.y + HeadWH + HeadLeftMargin;
+    _rect = _textRect;
+    _rect.origin.x = 0;
+    _rect.size.width = [UIScreen mainScreen].bounds.size.width;
     
     if (self.data.retweetedStatus) {
         //detail文本frame

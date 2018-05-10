@@ -43,7 +43,7 @@
     if (!CGSizeEqualToSize(self.labelImageView.frame.size, frame.size)) {
         self.labelImageView.image = nil;
     }
-    self.labelImageView.frame = CGRectMake(0, -5, frame.size.width, frame.size.height + 10);
+    self.labelImageView.frame = CGRectMake(0, 5, frame.size.width, frame.size.height);
     [super setFrame:frame];
 }
 
@@ -140,6 +140,7 @@
                         }
                         weakself.labelImageView.image = nil;
                         weakself.labelImageView.image = screenShootImage;
+                        weakself.bounds = weakself.labelImageView.bounds;
                     }
                 }
             });

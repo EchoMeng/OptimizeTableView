@@ -20,6 +20,8 @@
 
 @property (nonatomic, assign) CGRect textRect;
 
+@property (nonatomic, assign) CGRect rect;
+
 @property (nonatomic, assign) CGRect subTextRect;
 
 @property (nonatomic, assign) CGRect subRect;
