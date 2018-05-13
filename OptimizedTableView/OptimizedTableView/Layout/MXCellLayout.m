@@ -11,10 +11,10 @@
 
 #define TextLRMargin (15)
 #define HeadTopMargin (15)
-#define HeadLeftMargin (15)
 #define HeadWH (40)
 #define NameTopMargin (3)
-#define PublicMargin (10)
+#define CommentHeight (43)
+#define LogoWH (20)
 
 @implementation MXCellLayout
 
@@ -64,9 +64,38 @@
         _subRect.origin.y -= 5;
         _subRect.size.height += 10;
         _subRect.size.width = ScreenWidth;
+    } else {
+        _subRect = CGRectZero;
+    }
+    
+    //图片
+    if (self.data.picURLs.count > 0) {
+        CGFloat picScrollY = MAX(CGRectGetMaxY(_subRect), CGRectGetMaxY(_textRect));
+        _picScrollViewFrame = CGRectMake(0, picScrollY + PublicMargin, ScreenWidth, ScrollViewHeight);
+    } else {
+        _picScrollViewFrame = CGRectZero;
+    }
+    
+    //评论和转发
+    CGFloat tempY = MAX(CGRectGetMaxY(_textRect), CGRectGetMaxY(_subRect));
+    CGFloat commentY = MAX(tempY, CGRectGetMaxY(_picScrollViewFrame)) + PublicMargin;
+    _commentRect = CGRectMake(0, commentY, ScreenWidth, CommentHeight);
+    
+    _commentLogoFrame = CGRectMake(ScreenWidth - 80, commentY + PublicMargin, LogoWH, LogoWH);
+    _reportLogoFrame = CGRectMake(ScreenWidth - 140, commentY + PublicMargin, LogoWH, LogoWH);
+    if (self.data.commentsCount > 0) {
+        _commentTextOrigin = CGPointMake(CGRectGetMaxX(_commentLogoFrame) + 3, _commentLogoFrame.origin.y + 3);
+    } else {
+        _commentTextOrigin = CGPointZero;
+    }
+    if (self.data.repostsCount > 0) {
+        _reportTextOrigin = CGPointMake(CGRectGetMaxX(_reportLogoFrame) + 3, _reportLogoFrame.origin.y + 3);
+    } else {
+        _reportTextOrigin = CGPointZero;
     }
 
-    _frame = CGRectMake(0, 0, ScreenWidth, _headFrame.size.height + PublicMargin + _textRect.size.height + PublicMargin + _subRect.size.height + PublicMargin + _picFrame.size.height + PublicMargin);
+    CGFloat frameHeight = HeadTopMargin + _headFrame.size.height + PublicMargin + _textRect.size.height + PublicMargin + (_subRect.size.height>0 ?  (_subRect.size.height + PublicMargin):0) + (_picScrollViewFrame.size.height>0?(_picScrollViewFrame.size.height + PublicMargin):0) + CommentHeight;
+    _frame = CGRectMake(0, 0, ScreenWidth, frameHeight);
 }
 
 @end

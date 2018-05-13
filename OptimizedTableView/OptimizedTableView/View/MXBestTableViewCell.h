@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MXContent.h"
+#import "MXCellLayout.h"
 
 @interface MXBestTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) MXContent *data;
+
+@property (nonatomic, strong) MXCellLayout *layout;
 
 - (void)draw;
 

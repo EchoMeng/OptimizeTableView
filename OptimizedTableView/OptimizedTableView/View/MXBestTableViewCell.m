@@ -12,7 +12,7 @@
 #import <UIImageView+WebCache.h>
 #import "MXBestLabel.h"
 #import "NSString+Additions.h"
-#import "MXCellLayout.h"
+
 
 #define NameFont (14)
 #define NameDetailFont (10)
@@ -35,7 +35,6 @@
 
 @property (nonatomic, assign) BOOL drawed;
 
-@property (nonatomic, strong) MXCellLayout *layout;
 
 @end
 
@@ -113,20 +112,22 @@
     }
     _drawed = YES;
     [self drawText];
+    [self loadPics];
     //这部分将整个背景合成一张图片显示
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //这里绘制背景颜色填充
-        CGRect rect = CGRectFromString(self.data.frame);
+        CGRect rect = self.layout.frame;
         UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);
         CGContextRef context = UIGraphicsGetCurrentContext();
         [[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1] set];
         CGContextFillRect(context, rect);
         //主文本部分颜色
+        [[UIColor whiteColor] set];
         CGContextFillRect(context, self.layout.rect);
         
         //如果有详情部分，设置其背景颜色
         if (self.data.retweetedStatus) {
-            [[UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1] set];
+            [kColorLightGray set];
             CGContextFillRect(context, self.layout.subRect);
         }
         //绘制用户名部分
@@ -137,7 +138,21 @@
             
             [self.data.createdAt drawInContext:context withPosition:self.layout.sunNameOrigin andFont:[UIFont systemFontOfSize:NameDetailFont] andTextColor:[UIColor grayColor] andHeight:fromHeight];
         }
-        
+        //绘制评论转发部分
+        {
+            [kColorLightGray set];
+            CGContextFillRect(context, self.layout.commentRect);
+            [[UIImage imageNamed:@"t_comments@2x"] drawInRect:self.layout.commentLogoFrame];
+            [[UIImage imageNamed:@"t_repost@2x"] drawInRect:self.layout.reportLogoFrame];
+            if (self.data.commentsCount > 0) {
+                NSString *commentNumStr = [NSString stringWithFormat:@"%ld", (long)self.data.commentsCount];
+                [commentNumStr drawInContext:context withPosition:self.layout.commentTextOrigin andFont:[UIFont systemFontOfSize:DetailFontSize] andTextColor:[UIColor grayColor] andHeight:rect.size.height];
+            }
+            if (self.data.repostsCount > 0) {
+                NSString *reportNumStr = [NSString stringWithFormat:@"%ld", (long)self.data.repostsCount];
+                [reportNumStr drawInContext:context withPosition:self.layout.reportTextOrigin andFont:[UIFont systemFontOfSize:DetailFontSize] andTextColor:[UIColor grayColor] andHeight:rect.size.height];
+            }
+        }
         
         //获取截图
         UIImage *temp = UIGraphicsGetImageFromCurrentImageContext();
@@ -150,6 +165,32 @@
         });
     });
     
+}
+
+- (void)loadPics {
+    NSInteger count = self.data.picURLs.count;
+    if (count <= 0) {
+        self.mutiImageScrollView.frame = CGRectZero;
+        self.mutiImageScrollView.hidden = YES;
+        return;
+    }
+    for (UIImageView *imageView in self.mutiImageScrollView.subviews) {
+        [imageView removeFromSuperview];
+    }
+    self.mutiImageScrollView.frame = self.layout.picScrollViewFrame;
+    self.mutiImageScrollView.contentSize = CGSizeMake(HeadLeftMargin * 2 + PublicMargin * (count - 1) + PicWidth * count, 0);
+    self.mutiImageScrollView.backgroundColor = kColorLightGray;
+    self.mutiImageScrollView.hidden = NO;
+    
+    for (int i = 0; i < count; i++) {
+        UIImageView *picView = [[UIImageView alloc] init];
+        picView.contentMode = UIViewContentModeScaleAspectFill;
+        picView.backgroundColor = [UIColor grayColor];
+        picView.clipsToBounds = YES;
+        picView.frame = CGRectMake(HeadLeftMargin + PublicMargin * i + PicWidth * i, PublicMargin, PicWidth, PicHeight);
+        [self.mutiImageScrollView addSubview:picView];
+        [picView sd_setImageWithURL:self.data.picURLs[i]];
+    }
 }
 
 - (void)drawText {

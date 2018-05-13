@@ -20,6 +20,12 @@
 
 @property (nonatomic, strong) MXUser *user;
 
+@property (nonatomic, strong) NSArray *picURLs;
+
 @property (nonatomic, strong) NSString *createdAt;
+
+@property (nonatomic, assign) NSInteger commentsCount;
+
+@property (nonatomic, assign) NSInteger repostsCount;
 
 @end

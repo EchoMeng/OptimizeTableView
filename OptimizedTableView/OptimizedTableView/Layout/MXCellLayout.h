@@ -26,11 +26,21 @@
 
 @property (nonatomic, assign) CGRect subRect;
 
-@property (nonatomic, assign) CGRect picFrame;
+@property (nonatomic, assign) CGRect picScrollViewFrame;
 
 @property (nonatomic, assign) CGPoint nameOrigin;
 
 @property (nonatomic, assign) CGPoint sunNameOrigin;
+
+@property (nonatomic, assign) CGRect commentRect;
+
+@property (nonatomic, assign) CGRect commentLogoFrame;
+
+@property (nonatomic, assign) CGRect reportLogoFrame;
+
+@property (nonatomic, assign) CGPoint commentTextOrigin;
+
+@property (nonatomic, assign) CGPoint reportTextOrigin;
 
 @property (nonatomic, strong) MXContent *data;
 

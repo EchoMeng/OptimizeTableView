@@ -17,3 +17,10 @@
 #define MinLineHeight ([UIFont systemFontOfSize:TextFontSize].pointSize)
 #define MaxLineHeight ([UIFont systemFontOfSize:TextFontSize].pointSize)
 #define LineSpace (5)
+#define ScrollViewHeight (170)
+#define PicHeight (150)
+#define PicWidth (150)
+#define HeadLeftMargin (15)
+#define PublicMargin (10)
+
+#define kColorLightGray [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1]

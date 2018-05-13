@@ -10,6 +10,7 @@
 #import "MXBestTableViewCell.h"
 #import "MXContent.h"
 #import <MJExtension.h>
+#import "MXCellLayout.h"
 
 #define BestCellReuseID (@"bestCell")
 
@@ -56,9 +57,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MXCellLayout *layout = [[MXCellLayout alloc] init];
     MXContent *data = self.datas[indexPath.row];
-    CGRect frame = CGRectFromString(data.frame);
-    return frame.size.height;
+    layout.data = data;
+    return layout.frame.size.height;
 }
 
 #pragma UITableViewDelegate

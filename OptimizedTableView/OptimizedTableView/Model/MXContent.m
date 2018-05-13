@@ -16,7 +16,10 @@
     [NSObject mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{
                  @"retweetedStatus" : @"retweeted_status",
-                 @"createdAt" : @"created_at"
+                 @"createdAt" : @"created_at",
+                 @"picURLs" : @"pic_urls",
+                 @"commentsCount" : @"comments_count",
+                 @"repostsCount" : @"reposts_count"
                  };
     }];
     [MXContent mj_setupObjectClassInArray:^NSDictionary *{
