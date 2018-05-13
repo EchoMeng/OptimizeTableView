@@ -63,11 +63,12 @@
     //async draw
     __weak typeof(self) weakself = self;
     _text = text;
+    UIColor *bgColor = [self.backgroundColor copy];
+    __block CGSize size = self.frame.size;
+    size.height += 10;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *temp = text;
-        CGSize size = self.frame.size;
-        size.height += 10;
-        UIGraphicsBeginImageContextWithOptions(size, ![self.backgroundColor isEqual:[UIColor clearColor]], 0);
+        UIGraphicsBeginImageContextWithOptions(size, ![bgColor isEqual:[UIColor clearColor]], 0);
         //打开上下文
         CGContextRef context = UIGraphicsGetCurrentContext();
         if (context == NULL) {
@@ -114,7 +115,7 @@
         CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributeString);
         CGRect rect = CGRectMake(0, 5, size.width, size.height-5);
         //background color
-        if (![self.backgroundColor isEqual:[UIColor clearColor]]) {
+        if (![bgColor isEqual:[UIColor clearColor]]) {
             [self.backgroundColor set];
             CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
         }
@@ -130,12 +131,12 @@
             // 关闭上下文
             UIGraphicsEndImageContext();
             //上述绘制完成之后，回到主线程
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 CFRelease(font);
                 CFRelease(framesetter);
                 CFRelease(style);
                 [[attributeStr mutableString] setString:@""];
-                
                 if (weakself.drawFlag == flag) {
                     if ([temp isEqualToString:text]) {
                         if (weakself.labelImageView.width != screenShootImage.size.width) {
