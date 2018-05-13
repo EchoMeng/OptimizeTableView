@@ -81,8 +81,8 @@
     CGFloat commentY = MAX(tempY, CGRectGetMaxY(_picScrollViewFrame)) + PublicMargin;
     _commentRect = CGRectMake(0, commentY, ScreenWidth, CommentHeight);
     
-    _commentLogoFrame = CGRectMake(ScreenWidth - 80, commentY + PublicMargin, LogoWH, LogoWH);
-    _reportLogoFrame = CGRectMake(ScreenWidth - 140, commentY + PublicMargin, LogoWH, LogoWH);
+    _commentLogoFrame = CGRectMake(ScreenWidth - 60, commentY + PublicMargin, LogoWH, LogoWH);
+    _reportLogoFrame = CGRectMake(ScreenWidth - 120, commentY + PublicMargin, LogoWH, LogoWH);
     if (self.data.commentsCount > 0) {
         _commentTextOrigin = CGPointMake(CGRectGetMaxX(_commentLogoFrame) + 3, _commentLogoFrame.origin.y + 3);
     } else {

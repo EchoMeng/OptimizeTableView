@@ -25,8 +25,6 @@
 
 @property (nonatomic, strong) UIImageView *conerImageView;
 
-@property (nonatomic, strong) UIView *topLine;
-
 @property (nonatomic, strong) MXBestLabel *titleLabel;
 
 @property (nonatomic, strong) MXBestLabel *detailInfoLabel;
@@ -64,13 +62,6 @@
     _conerImageView.center = self.headButton.center;
     _conerImageView.image = [UIImage imageNamed:@"corner_circle@2x.png"];
     [self.contentView addSubview:_conerImageView];
-    
-    //分割线
-    _topLine = [[UIView alloc] init];
-    //    CGRect frame = CGRectFromString(self.data.frame);
-    //    _topLine.frame = CGRectMake(0, frame.size.height - 0.5, [UIScreen screenWidth], 0.5);
-    _topLine.backgroundColor = [UIColor yellowColor];
-    [self.contentView addSubview:_topLine];
     
     [self addContentLabel];
     
@@ -111,8 +102,6 @@
         return;
     }
     _drawed = YES;
-    [self drawText];
-    [self loadPics];
     //这部分将整个背景合成一张图片显示
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //这里绘制背景颜色填充
@@ -129,6 +118,10 @@
         if (self.data.retweetedStatus) {
             [kColorLightGray set];
             CGContextFillRect(context, self.layout.subRect);
+            CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+            CGContextSetLineWidth(context, 0.3);
+            CGContextAddRect(context, self.layout.subRect);
+            CGContextDrawPath(context, kCGPathFillStroke);
         }
         //绘制用户名部分
         {
@@ -142,6 +135,10 @@
         {
             [kColorLightGray set];
             CGContextFillRect(context, self.layout.commentRect);
+            CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+            CGContextSetLineWidth(context, 0.3);
+            CGContextAddRect(context, self.layout.commentRect);
+            CGContextDrawPath(context, kCGPathFillStroke);
             [[UIImage imageNamed:@"t_comments@2x"] drawInRect:self.layout.commentLogoFrame];
             [[UIImage imageNamed:@"t_repost@2x"] drawInRect:self.layout.reportLogoFrame];
             if (self.data.commentsCount > 0) {
@@ -164,7 +161,8 @@
             self.bgImageView.image = temp;
         });
     });
-    
+    [self drawText];
+    [self loadPics];
 }
 
 - (void)loadPics {
@@ -180,6 +178,8 @@
     self.mutiImageScrollView.frame = self.layout.picScrollViewFrame;
     self.mutiImageScrollView.contentSize = CGSizeMake(HeadLeftMargin * 2 + PublicMargin * (count - 1) + PicWidth * count, 0);
     self.mutiImageScrollView.backgroundColor = kColorLightGray;
+    self.mutiImageScrollView.layer.borderWidth = 0.3;
+    self.mutiImageScrollView.layer.borderColor = [UIColor grayColor].CGColor;
     self.mutiImageScrollView.hidden = NO;
     
     for (int i = 0; i < count; i++) {
@@ -201,7 +201,7 @@
     self.titleLabel.text = self.data.text;
     if (self.data.retweetedStatus) {
         self.detailInfoLabel.frame = self.layout.subTextRect;
-        self.detailInfoLabel.text = self.data.retweetedStatus.text;
+        self.detailInfoLabel.text = [NSString stringWithFormat:@"@%@: %@", self.data.retweetedStatus.user.name, self.data.retweetedStatus.text];
         self.detailInfoLabel.hidden = NO;
     }
 }
