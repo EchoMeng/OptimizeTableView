@@ -19,6 +19,8 @@
 @end
 
 @implementation MXBestLabel
+
+//由于直接采用CoreText绘制label会导致文字的部分截断，因此需要调整frame，高度+10，origin.y-5
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _drawFlag = arc4random();
@@ -33,7 +35,7 @@
         _font = [UIFont systemFontOfSize:17];
         _textColor = [UIColor blackColor];
         _textAlignment = NSTextAlignmentLeft;
-        _lineSpace = 5;
+        _lineSpace = LineSpace;
     }
     return self;
 }
@@ -43,16 +45,15 @@
     if (!CGSizeEqualToSize(self.labelImageView.frame.size, frame.size)) {
         self.labelImageView.image = nil;
     }
-    self.labelImageView.frame = CGRectMake(0, 5, frame.size.width, frame.size.height);
+    self.labelImageView.frame = CGRectMake(0, -5, frame.size.width, frame.size.height+10);
     [super setFrame:frame];
 }
 
 //use coretext draw text as image
-//
 //使用core text就是先有一个要显示的string，然后定义这个string每个部分的样式－>attributedString －> 生成 CTFramesetter -> 得到CTFrame -> 绘制（CTFrameDraw） 其中可以更详细的设置换行方式，对齐方式，绘制区域的大小等。
 - (void)setText:(NSString *)text {
-    if (text == nil || text.length == 0) {
-        self.labelImageView = nil;
+    if (text == nil || text.length <= 0) {
+        self.labelImageView.image = nil;
         return;
     }
     if ([text isEqualToString:self.text]) {
@@ -69,13 +70,10 @@
         UIGraphicsBeginImageContextWithOptions(size, ![self.backgroundColor isEqual:[UIColor clearColor]], 0);
         //打开上下文
         CGContextRef context = UIGraphicsGetCurrentContext();
-        if (context == nil) {
+        if (context == NULL) {
             return;
         }
-        if (![self.backgroundColor isEqual:[UIColor clearColor]]) {
-            [self.backgroundColor set];
-            CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
-        }
+
         //CGContextSetTextMatrix调整坐标系，防止文字倒立。当前对文本执行变换的变换矩阵
         CGContextSetTextMatrix(context, CGAffineTransformIdentity);
         //绘制需要从坐标左下角为原点，因此需要坐标轴翻转
@@ -84,15 +82,17 @@
         //默认颜色
         UIColor *textColor = self.textColor;
         //设置行高，字体，颜色，和对齐方式
-        CGFloat minLineHeight = self.font.pointSize;
-        CGFloat maxLineHeight = minLineHeight;
-        CGFloat lineSpace = self.lineSpace;
+
         //字体
         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)self.font.fontName, self.font.pointSize, NULL);
         //line break mode
         CTLineBreakMode lineBreakMode = kCTLineBreakByWordWrapping;
         //对齐方式
         CTTextAlignment textAlignment = NSTextAlignmentToCTTextAlignment(self.textAlignment);
+        
+        CGFloat maxLineHeight = MaxLineHeight;
+        CGFloat minLineHeight = MinLineHeight;
+        CGFloat lineSpace = self.lineSpace;
         
         //将上述设置应用到字体style中 kCTParagraphStyleAttributeName
         CTParagraphStyleRef style = CTParagraphStyleCreate((CTParagraphStyleSetting[6]) {
@@ -106,12 +106,18 @@
         
         //attribute字典里包含文字字体、颜色、style等信息
         NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)font, (NSString *)kCTFontAttributeName, textColor.CGColor, kCTForegroundColorAttributeName, style, kCTParagraphStyleAttributeName, nil];
+        
         //创建CFAttributedStringRef，没有模仿例子使用高亮
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
         CFAttributedStringRef attributeString = (__bridge CFAttributedStringRef)attributeStr;
         //draw
         CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributeString);
-        CGRect rect = CGRectMake(0, 5, size.width, size.height - 5);
+        CGRect rect = CGRectMake(0, 5, size.width, size.height-5);
+        //background color
+        if (![self.backgroundColor isEqual:[UIColor clearColor]]) {
+            [self.backgroundColor set];
+            CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
+        }
         
         if ([temp isEqualToString:text]) {
             [self drawFrameSetter:framesetter attributeString:attributeStr textRange:CFRangeMake(0, text.length) inRect:rect context:context];
@@ -140,7 +146,6 @@
                         }
                         weakself.labelImageView.image = nil;
                         weakself.labelImageView.image = screenShootImage;
-                        weakself.bounds = weakself.labelImageView.bounds;
                     }
                 }
             });
@@ -224,7 +229,6 @@
     _drawFlag = arc4random();
     _text = @"";
     _labelImageView.image = nil;
-    
 }
 
 - (void)dealloc {

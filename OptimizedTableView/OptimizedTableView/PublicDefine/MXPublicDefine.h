@@ -11,3 +11,9 @@
 
 #define TextFontSize (14)
 #define DetailFontSize (12)
+#define ScreenWidth [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+
+#define MinLineHeight ([UIFont systemFontOfSize:TextFontSize].pointSize)
+#define MaxLineHeight ([UIFont systemFontOfSize:TextFontSize].pointSize)
+#define LineSpace (5)

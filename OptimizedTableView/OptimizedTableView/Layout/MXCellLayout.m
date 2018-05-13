@@ -23,7 +23,6 @@
         return;
     }
     _data = data;
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     
     //头像frame
     _headFrame = CGRectMake(HeadLeftMargin, HeadTopMargin, HeadWH, HeadWH);
@@ -38,7 +37,13 @@
     _sunNameOrigin = CGPointMake(_nameOrigin.x, _nameOrigin.y + 20);
     
     //主文本frame
-    _textRect = [self.data.text boundingRectWithSize:CGSizeMake(screenWidth - HeadLeftMargin * 2, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:TextFontSize]} context:nil];
+    NSMutableParagraphStyle *myStyle = [[NSMutableParagraphStyle alloc] init];
+    myStyle.lineSpacing = LineSpace;
+    myStyle.maximumLineHeight = MaxLineHeight;
+    myStyle.minimumLineHeight = MinLineHeight;
+    myStyle.lineBreakMode = NSTextAlignmentLeft;
+    _textRect = [self.data.text boundingRectWithSize:CGSizeMake(ScreenWidth - HeadLeftMargin * 2, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:TextFontSize], NSParagraphStyleAttributeName : myStyle} context:nil];
+    
     _textRect.origin.x = HeadLeftMargin;
     _textRect.origin.y = _headFrame.origin.y + HeadWH + HeadLeftMargin;
     _rect = _textRect;
@@ -47,19 +52,17 @@
     
     if (self.data.retweetedStatus) {
         //detail文本frame
-        _subTextRect = [self.data.retweetedStatus.text boundingRectWithSize:CGSizeMake(screenWidth - HeadLeftMargin * 2, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:TextFontSize]} context:nil];
+        _subTextRect = [self.data.retweetedStatus.text boundingRectWithSize:CGSizeMake(ScreenWidth - HeadLeftMargin * 2, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:DetailFontSize], NSParagraphStyleAttributeName : myStyle} context:nil];
         _subTextRect.origin.x = HeadLeftMargin;
         _subTextRect.origin.y = _textRect.origin.y + _textRect.size.height + PublicMargin;
         
         //detail文本部分框的frame
         _subRect = _subTextRect;
         _subRect.origin.x = 0;
-        _subRect.size.width = screenWidth;
+        _subRect.size.width = ScreenWidth;
     }
 
-    
-    
-    _frame = CGRectMake(0, 0, screenWidth, _headFrame.size.height + PublicMargin + _textRect.size.height + PublicMargin + _subRect.size.height + PublicMargin + _picFrame.size.height + PublicMargin);
+    _frame = CGRectMake(0, 0, ScreenWidth, _headFrame.size.height + PublicMargin + _textRect.size.height + PublicMargin + _subRect.size.height + PublicMargin + _picFrame.size.height + PublicMargin);
 }
 
 @end

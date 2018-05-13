@@ -98,14 +98,14 @@
     _titleLabel = [[MXBestLabel alloc] init];
     _titleLabel.textColor = [UIColor grayColor];
     _titleLabel.font = [UIFont systemFontOfSize:TextFontSize];
-    //    _titleLabel.text = self.data.text;
+    _titleLabel.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_titleLabel];
     
     
     _detailInfoLabel = [[MXBestLabel alloc] init];
     _detailInfoLabel.textColor = [UIColor grayColor];
     _detailInfoLabel.font = [UIFont systemFontOfSize:DetailFontSize];
-    //    _detailInfoLabel.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1];
+    _detailInfoLabel.backgroundColor = [UIColor yellowColor];
     [self.contentView addSubview:_detailInfoLabel];
 }
 
@@ -124,13 +124,13 @@
         [[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1] set];
         CGContextFillRect(context, rect);
         //祝文本部分颜色
-        [[UIColor yellowColor] set];
+//        [[UIColor yellowColor] set];
         CGContextFillRect(context, self.layout.rect);
         
         //如果有详情部分，设置其背景颜色
         if (self.data.retweetedStatus) {
 //            [[UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1] set];
-            [[UIColor redColor] set];
+//            [[UIColor redColor] set];
             CGContextFillRect(context, self.layout.subRect);
         }
         //绘制用户名部分
@@ -198,10 +198,11 @@
 }
 
 - (void)setData:(MXContent *)data {
-    self.layout.data = data;
-    self.headButton.frame = self.layout.headFrame;
-    self.conerImageView.frame = self.layout.cornerFrame;
-    self.conerImageView.center = self.headButton.center;
+    _layout = [[MXCellLayout alloc] init];
+    _layout.data = data;
+    self.headButton.frame = _layout.headFrame;
+    self.conerImageView.frame = _layout.cornerFrame;
+    self.conerImageView.center = _headButton.center;
     _data = data;
 }
 
@@ -209,13 +210,6 @@
     CGRect newFrame = frame;
     newFrame.size.height -= 3;
     [super setFrame:newFrame];
-}
-
-- (MXCellLayout *)layout {
-    if (!_layout) {
-        _layout = [[MXCellLayout alloc] init];
-    }
-    return _layout;
 }
 
 @end
