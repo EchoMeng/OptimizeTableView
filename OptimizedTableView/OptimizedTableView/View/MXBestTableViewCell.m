@@ -98,14 +98,12 @@
     _titleLabel = [[MXBestLabel alloc] init];
     _titleLabel.textColor = [UIColor grayColor];
     _titleLabel.font = [UIFont systemFontOfSize:TextFontSize];
-    _titleLabel.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_titleLabel];
     
     
     _detailInfoLabel = [[MXBestLabel alloc] init];
     _detailInfoLabel.textColor = [UIColor grayColor];
     _detailInfoLabel.font = [UIFont systemFontOfSize:DetailFontSize];
-    _detailInfoLabel.backgroundColor = [UIColor yellowColor];
     [self.contentView addSubview:_detailInfoLabel];
 }
 
@@ -123,14 +121,12 @@
         CGContextRef context = UIGraphicsGetCurrentContext();
         [[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1] set];
         CGContextFillRect(context, rect);
-        //祝文本部分颜色
-//        [[UIColor yellowColor] set];
+        //主文本部分颜色
         CGContextFillRect(context, self.layout.rect);
         
         //如果有详情部分，设置其背景颜色
         if (self.data.retweetedStatus) {
-//            [[UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1] set];
-//            [[UIColor redColor] set];
+            [[UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1] set];
             CGContextFillRect(context, self.layout.subRect);
         }
         //绘制用户名部分

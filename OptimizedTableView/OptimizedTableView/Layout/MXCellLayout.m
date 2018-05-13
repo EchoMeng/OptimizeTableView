@@ -48,6 +48,8 @@
     _textRect.origin.y = _headFrame.origin.y + HeadWH + HeadLeftMargin;
     _rect = _textRect;
     _rect.origin.x = 0;
+    _rect.origin.y -= 9;
+    _rect.size.height += 10;
     _rect.size.width = [UIScreen mainScreen].bounds.size.width;
     
     if (self.data.retweetedStatus) {
@@ -59,6 +61,8 @@
         //detail文本部分框的frame
         _subRect = _subTextRect;
         _subRect.origin.x = 0;
+        _subRect.origin.y -= 5;
+        _subRect.size.height += 10;
         _subRect.size.width = ScreenWidth;
     }
 
