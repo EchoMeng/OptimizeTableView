@@ -10,11 +10,31 @@
 #import <CoreText/CoreText.h>
 #import "UIView+Additions.h"
 
+#define RegularHighLightTypeURL @"url"
+#define RegularHighLightTypeAccount @"account"
+#define RegularHighLightTypeTopic @"topic"
+#define RegularHighLightTypeEmoji @"emoji"
+#define URLRegular @"(http|https)://(t.cn/|weibo.com/)+(([a-zA-Z0-9/])*)"
+#define EmojiRegular @"(\\[\\w+\\])"
+#define AccountRegualr @"@[\u4e00-\u9fa5a-zA-Z0-9_-]{2,30}"
+#define TopicRegular @"#[^#]+#"
+
+
 @interface MXBestLabel()
 
 @property (nonatomic, strong) UIImageView *labelImageView;
 
+@property (nonatomic, strong) UIImageView *highlightLabelImageView;
+
 @property (nonatomic, assign) NSInteger drawFlag;
+
+@property (nonatomic, strong) NSMutableDictionary *highlightColors;
+
+@property (nonatomic, strong) NSMutableDictionary *framesDic;
+
+@property (nonatomic, assign) NSRange currentRange;
+
+@property (nonatomic, assign) BOOL highlighting;
 
 @end
 
@@ -24,10 +44,17 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _drawFlag = arc4random();
+        _framesDic = [[NSMutableDictionary alloc] init];
+        _highlightColors = [[NSMutableDictionary alloc] initWithObjectsAndKeys:kColorURL,RegularHighLightTypeURL,kColorEmoji,RegularHighLightTypeEmoji, kColorTopic, RegularHighLightTypeTopic, kColorAccount, RegularHighLightTypeAccount, nil];
         _labelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -5, frame.size.width, frame.size.height+10)];
         _labelImageView.contentMode = UIViewContentModeScaleAspectFit;
         _labelImageView.clipsToBounds = YES;
         [self addSubview:_labelImageView];
+        
+        _highlightLabelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -5, frame.size.width, frame.size.height + 10)];
+        _highlightLabelImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _highlightLabelImageView.clipsToBounds = YES;
+        [self addSubview:_highlightLabelImageView];
         
         self.userInteractionEnabled = YES;
         self.clipsToBounds = NO;
@@ -44,9 +71,55 @@
 - (void)setFrame:(CGRect)frame {
     if (!CGSizeEqualToSize(self.labelImageView.frame.size, frame.size)) {
         self.labelImageView.image = nil;
+        self.highlightLabelImageView.image = nil;
     }
     self.labelImageView.frame = CGRectMake(0, -5, frame.size.width, frame.size.height+10);
+    self.highlightLabelImageView.frame = CGRectMake(0, -5, frame.size.width, frame.size.height);
     [super setFrame:frame];
+}
+
+//高亮处理
+- (NSMutableAttributedString *)highlightText:(NSMutableAttributedString *)attributedString {
+    NSString *string = attributedString.string;
+    NSRange range = NSMakeRange(0, [string length]);
+    NSDictionary *defination = @{
+                                 RegularHighLightTypeAccount: AccountRegualr,
+                                 RegularHighLightTypeTopic: TopicRegular,
+                                 RegularHighLightTypeEmoji: EmojiRegular,
+                                 RegularHighLightTypeURL: URLRegular
+                                 };
+    for (NSString *key in defination) {
+        NSString *expression = [defination objectForKey:key];
+        NSArray *matches = [[NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionDotMatchesLineSeparators error:nil] matchesInString:string options:0 range:range];
+        for (NSTextCheckingResult *match in matches) {
+            UIColor *textColor = nil;
+            if (!_highlightColors || !(textColor = ([self.highlightColors objectForKey:key]))) {
+                textColor = self.textColor;
+            }
+            if (self.labelImageView.image != nil && self.currentRange.location != -1 && self.currentRange.location >= match.range.location && self.currentRange.length + self.currentRange.location <= match.range.length + match.range.location) {
+                [attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[UIColor purpleColor] range:match.range];
+                double delayInSeconds = 2;
+                
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                    [self backToNormal];
+                });
+            } else {
+                UIColor *highlightColor = self.highlightColors[key];
+                [attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)highlightColor.CGColor range:match.range];
+            }
+        }
+    }
+    return attributedString;
+}
+
+- (void)backToNormal {
+    if (!_highlighting) {
+        return;
+    }
+    _highlighting = NO;
+    _currentRange = NSMakeRange(-1, -1);
+    _highlightLabelImageView.image = nil;
 }
 
 //use coretext draw text as image
@@ -54,12 +127,22 @@
 - (void)setText:(NSString *)text {
     if (text == nil || text.length <= 0) {
         self.labelImageView.image = nil;
+        self.highlightLabelImageView.image = nil;
         return;
     }
     if ([text isEqualToString:self.text]) {
+        if (!_highlighting || _currentRange.location == -1) {
+            return;
+        }
+    }
+    if (self.highlighting && self.labelImageView.image == nil) {
         return;
     }
+    if (!_highlighting) {
+        _currentRange = NSMakeRange(-1, -1);
+    }
     NSInteger flag = self.drawFlag;
+    BOOL isHighlighting = self.highlighting;
     //async draw
     __weak typeof(self) weakself = self;
     _text = text;
@@ -74,7 +157,7 @@
         if (context == NULL) {
             return;
         }
-
+        
         //CGContextSetTextMatrix调整坐标系，防止文字倒立。当前对文本执行变换的变换矩阵
         CGContextSetTextMatrix(context, CGAffineTransformIdentity);
         //绘制需要从坐标左下角为原点，因此需要坐标轴翻转
@@ -83,7 +166,7 @@
         //默认颜色
         UIColor *textColor = self.textColor;
         //设置行高，字体，颜色，和对齐方式
-
+        
         //字体
         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)self.font.fontName, self.font.pointSize, NULL);
         //line break mode
@@ -108,9 +191,9 @@
         //attribute字典里包含文字字体、颜色、style等信息
         NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)font, (NSString *)kCTFontAttributeName, (__bridge id)textColor.CGColor, (id)kCTForegroundColorAttributeName, (__bridge id)style, (id)kCTParagraphStyleAttributeName, nil];
         
-        //创建CFAttributedStringRef，没有模仿例子使用高亮
+        //创建CFAttributedStringRef
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
-        CFAttributedStringRef attributeString = (__bridge CFAttributedStringRef)attributeStr;
+        CFAttributedStringRef attributeString = (__bridge CFAttributedStringRef)[self highlightText:attributeStr];
         //draw
         CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributeString);
         CGRect rect = CGRectMake(0, 5, size.width, size.height-5);
@@ -131,19 +214,31 @@
             // 关闭上下文
             UIGraphicsEndImageContext();
             //上述绘制完成之后，回到主线程
-
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[attributeStr mutableString] setString:@""];
                 if (weakself.drawFlag == flag) {
-                    if ([temp isEqualToString:text]) {
-                        if (weakself.labelImageView.width != screenShootImage.size.width) {
-                            weakself.labelImageView.width = screenShootImage.size.width;
+                    if (isHighlighting) {
+                        weakself.highlightLabelImageView.image = nil;
+                        if (weakself.highlightLabelImageView.width != screenShootImage.size.width) {
+                            weakself.highlightLabelImageView.width = screenShootImage.size.width;
                         }
-                        if (weakself.labelImageView.height != screenShootImage.size.height) {
-                            weakself.labelImageView.height = screenShootImage.size.height;
+                        if (weakself.highlightLabelImageView.height != screenShootImage.size.height) {
+                            weakself.highlightLabelImageView.height = screenShootImage.size.height;
                         }
-                        weakself.labelImageView.image = nil;
-                        weakself.labelImageView.image = screenShootImage;
+                        self.highlightLabelImageView.image = screenShootImage;
+                    } else {
+                        if ([temp isEqualToString:text]) {
+                            if (weakself.labelImageView.width != screenShootImage.size.width) {
+                                weakself.labelImageView.width = screenShootImage.size.width;
+                            }
+                            if (weakself.labelImageView.height != screenShootImage.size.height) {
+                                weakself.labelImageView.height = screenShootImage.size.height;
+                            }
+                            weakself.labelImageView.image = nil;
+                            weakself.highlightLabelImageView.image = nil;
+                            weakself.labelImageView.image = screenShootImage;
+                        }
                     }
                 }
             });
@@ -220,6 +315,25 @@
             CGContextSetTextPosition(context, penOffset, y);
             CTLineDraw(line, context);
         }
+        if (!self.highlighting && self.superview != nil) {
+            CFArrayRef runs = CTLineGetGlyphRuns(line);
+            for (int j = 0;  j < CFArrayGetCount(runs); j++) {
+                CGFloat runAscent;
+                CGFloat runDescent;
+                CTRunRef run = CFArrayGetValueAtIndex(runs, j);
+                NSDictionary *attributes = (__bridge NSDictionary *)CTRunGetAttributes(run);
+                if (!CGColorEqualToColor((__bridge CGColorRef)([attributes valueForKey:@"CTForegroundColor"]), self.textColor.CGColor) && self.framesDic != nil) {
+                    CFRange range = CTRunGetStringRange(run);
+                    CGRect runRect;
+                    runRect.size.width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), &runAscent, &runDescent, NULL);
+                    float offset = CTLineGetOffsetForStringIndex(line, range.location, NULL);
+                    float height = runAscent;
+                    runRect = CGRectMake(lineOrigin.x+offset, (self.height+5)-y-height+runDescent/2, runRect.size.width, height);
+                    NSRange nRange = NSMakeRange(range.location, range.length);
+                    [self.framesDic setValue:[NSValue valueWithCGRect:runRect] forKey:NSStringFromRange(nRange)];
+                }
+            }
+        }
     }
     
     CFRelease(frame);
@@ -234,6 +348,23 @@
 
 - (void)dealloc {
     NSLog(@"dealloc:%@", self);
+}
+
+//处理文本点击事件
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+}
+
+- (BOOL)touchPoint:(CGPoint)point {
+    return NO;
 }
 
 @end

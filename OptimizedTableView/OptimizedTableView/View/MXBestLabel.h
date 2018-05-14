@@ -21,6 +21,6 @@
 @property (nonatomic, assign) CGFloat lineSpace;
 
 - (void)clear;
-
+- (BOOL)touchPoint:(CGPoint)point;
 
 @end

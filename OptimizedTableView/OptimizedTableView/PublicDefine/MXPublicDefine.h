@@ -24,3 +24,7 @@
 #define PublicMargin (10)
 
 #define kColorLightGray [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1]
+#define kColorAccount ([UIColor colorWithRed:106/255.0 green:140/255.0 blue:181/255.0 alpha:1])
+#define kColorURL ([UIColor colorWithRed:106/255.0 green:140/255.0 blue:181/255.0 alpha:1])
+#define kColorEmoji ([UIColor colorWithRed:106/255.0 green:140/255.0 blue:181/255.0 alpha:1])
+#define kColorTopic ([UIColor colorWithRed:106/255.0 green:140/255.0 blue:181/255.0 alpha:1])
