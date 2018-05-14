@@ -151,7 +151,6 @@
         CFRelease(font);
         CFRelease(framesetter);
         CFRelease(style);
-        CFRelease(attributeString);
     });
 }
 
@@ -221,12 +220,10 @@
             CGContextSetTextPosition(context, penOffset, y);
             CTLineDraw(line, context);
         }
-        CFRelease(line);
     }
     
     CFRelease(frame);
     CFRelease(path);
-    CFRelease(lines);
 }
 
 - (void)clear {
