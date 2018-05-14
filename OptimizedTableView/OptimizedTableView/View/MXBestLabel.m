@@ -96,7 +96,11 @@
             if (!_highlightColors || !(textColor = ([self.highlightColors objectForKey:key]))) {
                 textColor = self.textColor;
             }
-            if (self.labelImageView.image != nil && self.currentRange.location != -1 && self.currentRange.location >= match.range.location && self.currentRange.length + self.currentRange.location <= match.range.length + match.range.location) {
+            __block UIImage *labelImage;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                labelImage = self.labelImageView.image;
+            });
+            if (labelImage != nil && self.currentRange.location != -1 && self.currentRange.location >= match.range.location && self.currentRange.length + self.currentRange.location <= match.range.length + match.range.location) {
                 [attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[UIColor purpleColor] range:match.range];
                 double delayInSeconds = 2;
                 
@@ -328,7 +332,11 @@
                     runRect.size.width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), &runAscent, &runDescent, NULL);
                     float offset = CTLineGetOffsetForStringIndex(line, range.location, NULL);
                     float height = runAscent;
-                    runRect = CGRectMake(lineOrigin.x+offset, (self.height+5)-y-height+runDescent/2, runRect.size.width, height);
+                    __block CGFloat selfFrameHeight;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        selfFrameHeight = self.frame.size.height;
+                    });
+                    runRect = CGRectMake(lineOrigin.x+offset, (selfFrameHeight+5)-y-height+runDescent/2, runRect.size.width, height);
                     NSRange nRange = NSMakeRange(range.location, range.length);
                     [self.framesDic setValue:[NSValue valueWithCGRect:runRect] forKey:NSStringFromRange(nRange)];
                 }
