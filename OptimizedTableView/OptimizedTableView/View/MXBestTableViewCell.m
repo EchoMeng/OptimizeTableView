@@ -116,9 +116,8 @@
         
         //如果有详情部分，设置其背景颜色
         if (self.data.retweetedStatus) {
-            [kColorLightGray set];
-            CGContextFillRect(context, self.layout.subRect);
-            CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+            [kColorLightGray setFill];
+            [[UIColor grayColor] setStroke];
             CGContextSetLineWidth(context, 0.3);
             CGContextAddRect(context, self.layout.subRect);
             CGContextDrawPath(context, kCGPathFillStroke);
@@ -133,9 +132,8 @@
         }
         //绘制评论转发部分
         {
-            [kColorLightGray set];
-            CGContextFillRect(context, self.layout.commentRect);
-            CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+            [kColorLightGray setFill];
+            [[UIColor grayColor] setStroke];
             CGContextSetLineWidth(context, 0.3);
             CGContextAddRect(context, self.layout.commentRect);
             CGContextDrawPath(context, kCGPathFillStroke);

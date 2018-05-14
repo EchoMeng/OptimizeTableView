@@ -106,7 +106,7 @@
         }, 6);
         
         //attribute字典里包含文字字体、颜色、style等信息
-        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)font, (NSString *)kCTFontAttributeName, textColor.CGColor, kCTForegroundColorAttributeName, style, kCTParagraphStyleAttributeName, nil];
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)font, (NSString *)kCTFontAttributeName, (__bridge id)textColor.CGColor, (id)kCTForegroundColorAttributeName, (__bridge id)style, (id)kCTParagraphStyleAttributeName, nil];
         
         //创建CFAttributedStringRef，没有模仿例子使用高亮
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
@@ -133,9 +133,6 @@
             //上述绘制完成之后，回到主线程
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                CFRelease(font);
-                CFRelease(framesetter);
-                CFRelease(style);
                 [[attributeStr mutableString] setString:@""];
                 if (weakself.drawFlag == flag) {
                     if ([temp isEqualToString:text]) {
@@ -151,6 +148,10 @@
                 }
             });
         }
+        CFRelease(font);
+        CFRelease(framesetter);
+        CFRelease(style);
+        CFRelease(attributeString);
     });
 }
 
@@ -220,10 +221,12 @@
             CGContextSetTextPosition(context, penOffset, y);
             CTLineDraw(line, context);
         }
+        CFRelease(line);
     }
     
     CFRelease(frame);
     CFRelease(path);
+    CFRelease(lines);
 }
 
 - (void)clear {
