@@ -126,6 +126,11 @@
     _highlightLabelImageView.image = nil;
 }
 
+- (void)highlightWords {
+    self.highlighting = YES;
+    [self setText:_text];
+}
+
 //use coretext draw text as image
 //使用core text就是先有一个要显示的string，然后定义这个string每个部分的样式－>attributedString －> 生成 CTFramesetter -> 得到CTFrame -> 绘制（CTFrameDraw） 其中可以更详细的设置换行方式，对齐方式，绘制区域的大小等。
 - (void)setText:(NSString *)text {
@@ -336,7 +341,7 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         selfFrameHeight = self.frame.size.height;
                     });
-                    runRect = CGRectMake(lineOrigin.x+offset, (selfFrameHeight+5)-y-height+runDescent/2, runRect.size.width, height);
+                    runRect = CGRectMake(lineOrigin.x+offset, (self.height+5)-y-height+runDescent/2, runRect.size.width, height);
                     NSRange nRange = NSMakeRange(range.location, range.length);
                     [self.framesDic setValue:[NSValue valueWithCGRect:runRect] forKey:NSStringFromRange(nRange)];
                 }
@@ -359,16 +364,33 @@
 }
 
 //处理文本点击事件
+//实际上是整个label响应点击事件，判断点击位置是否在高亮文本相应位置上
+//需要高亮时，重绘了整个label图片
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
+    CGPoint location = [[touches anyObject] locationInView:self];
+    for (NSString *key in self.framesDic.allKeys) {
+        CGRect frame = [[self.framesDic valueForKey:key] CGRectValue];
+        if (CGRectContainsPoint(frame, location)) {
+            NSRange range = NSRangeFromString(key);
+            range = NSMakeRange(range.location, range.length - 1);
+            _currentRange = range;
+            [self highlightWords];
+        }
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    if (self.highlighting) {
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 3.0);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^{
+            [self backToNormal];
+        });
+    }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
+    NSLog(@"%s",__func__);
 }
 
 - (BOOL)touchPoint:(CGPoint)point {
