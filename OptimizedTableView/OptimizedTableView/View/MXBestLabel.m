@@ -92,10 +92,10 @@
         NSString *expression = [defination objectForKey:key];
         NSArray *matches = [[NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionDotMatchesLineSeparators error:nil] matchesInString:string options:0 range:range];
         for (NSTextCheckingResult *match in matches) {
-            UIColor *textColor = nil;
-            if (!_highlightColors || !(textColor = ([self.highlightColors objectForKey:key]))) {
-                textColor = self.textColor;
-            }
+//            UIColor *textColor = nil;
+//            if (!_highlightColors || !(textColor = ([self.highlightColors objectForKey:key]))) {
+//                textColor = self.textColor;
+//            }
             __block UIImage *labelImage;
             dispatch_async(dispatch_get_main_queue(), ^{
                 labelImage = self.labelImageView.image;

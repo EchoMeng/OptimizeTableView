@@ -23,6 +23,10 @@
 
 @property (nonatomic, strong) UIButton *headButton;
 
+@property (nonatomic, strong) UIButton *commentButton;
+
+@property (nonatomic, strong) UIButton *reportButton;
+
 @property (nonatomic, strong) UIImageView *conerImageView;
 
 @property (nonatomic, strong) MXBestLabel *titleLabel;
@@ -55,7 +59,20 @@
     //头像按钮
     _headButton = [[UIButton alloc] init];
     _headButton.backgroundColor = [UIColor redColor];
+    [_headButton addTarget:self action:@selector(haedBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_headButton];
+    
+    //评论按钮
+    _commentButton = [[UIButton alloc] init];
+    [_commentButton setImage:[UIImage imageNamed:@"t_comments@2x"] forState:UIControlStateNormal];
+    [_commentButton addTarget:self action:@selector(commentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:_commentButton];
+    
+    //转发按钮
+    _reportButton = [[UIButton alloc] init];
+    [_reportButton setImage:[UIImage imageNamed:@"t_repost@2x"] forState:UIControlStateNormal];
+    [_reportButton addTarget:self action:@selector(reportBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:_reportButton];
     
     //头像圆角覆盖图
     _conerImageView = [[UIImageView alloc] init];
@@ -130,15 +147,16 @@
             
             [self.data.createdAt drawInContext:context withPosition:self.layout.sunNameOrigin andFont:[UIFont systemFontOfSize:NameDetailFont] andTextColor:[UIColor grayColor] andHeight:fromHeight];
         }
-        //绘制评论转发部分
+        //绘制评论转发部分。这里直接把转评部分直接绘制为背景图的一部分，无法响应点击事件，不能算是一个好办法吧。
+        //UIImage使用drawInRect方法的绘制十分耗时，导致整个背景图同步到主线程显示的时间延迟，因此这里没有使用这个方法
         {
             [kColorLightGray setFill];
             [[UIColor grayColor] setStroke];
             CGContextSetLineWidth(context, 0.3);
             CGContextAddRect(context, self.layout.commentRect);
             CGContextDrawPath(context, kCGPathFillStroke);
-            [[UIImage imageNamed:@"t_comments@2x"] drawInRect:self.layout.commentLogoFrame];
-            [[UIImage imageNamed:@"t_repost@2x"] drawInRect:self.layout.reportLogoFrame];
+//            [[UIImage imageNamed:@"t_comments@2x"] drawInRect:self.layout.commentLogoFrame blendMode:kCGBlendModeNormal alpha:1.0];
+//            [[UIImage imageNamed:@"t_repost@2x"] drawInRect:self.layout.reportLogoFrame blendMode:kCGBlendModeNormal alpha:1.0];
             if (self.data.commentsCount > 0) {
                 NSString *commentNumStr = [NSString stringWithFormat:@"%ld", (long)self.data.commentsCount];
                 [commentNumStr drawInContext:context withPosition:self.layout.commentTextOrigin andFont:[UIFont systemFontOfSize:DetailFontSize] andTextColor:[UIColor grayColor] andHeight:rect.size.height];
@@ -238,6 +256,8 @@
     self.headButton.frame = _layout.headFrame;
     self.conerImageView.frame = _layout.cornerFrame;
     self.conerImageView.center = _headButton.center;
+    self.commentButton.frame = _layout.commentLogoFrame;
+    self.reportButton.frame = _layout.reportLogoFrame;
     _data = data;
 }
 
@@ -245,6 +265,19 @@
     CGRect newFrame = frame;
     newFrame.size.height -= 3;
     [super setFrame:newFrame];
+}
+
+#pragma event
+- (void)haedBtnClick:(UIButton *)btn {
+    NSLog(@"%s", __func__);
+}
+
+- (void)commentBtnClick:(UIButton *)btn {
+    NSLog(@"%s", __func__);
+}
+
+- (void)reportBtnClick:(UIButton *)btn {
+    NSLog(@"%s", __func__);
 }
 
 @end
