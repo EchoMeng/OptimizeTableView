@@ -365,7 +365,7 @@
 
 //处理文本点击事件
 //实际上是整个label响应点击事件，判断点击位置是否在高亮文本相应位置上
-//需要高亮时，重绘了整个label图片
+//需要高亮时，highlightImage会显示，目前是叠加在原图上层
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     CGPoint location = [[touches anyObject] locationInView:self];
     for (NSString *key in self.framesDic.allKeys) {

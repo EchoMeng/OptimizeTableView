@@ -22,6 +22,7 @@
 #define PicWidth (150)
 #define HeadLeftMargin (15)
 #define PublicMargin (10)
+#define LoadCellCount (8)
 
 #define kColorLightGray [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1]
 #define kColorAccount ([UIColor colorWithRed:106/255.0 green:140/255.0 blue:181/255.0 alpha:1])
